@@ -1,0 +1,40 @@
+import React from "react"
+import { Container, Row, Col } from "shards-react"
+
+import PageTitle from "../components/common/PageTitle"
+import UserDetails from "../components/user-profile-lite/UserDetails"
+import UserAccountDetails from "../components/user-profile-lite/UserAccountDetails"
+import Header from "../components/header"
+import { useSelector } from "react-redux"
+
+const Application = (props) => { 
+  const state = useSelector( state => {
+    return {
+      details: state.application.application_details
+    }
+  })
+
+  // const { name } = state.details
+
+  return (
+    <>
+      <Header />
+      <Container fluid className="main-content-container px-4">
+
+        <Row noGutters className="page-header py-4">
+          <PageTitle title="Application Profile" subtitle="Overview" md="12" className="ml-sm-auto mr-sm-auto" />
+        </Row>
+        <Row>
+          <Col lg="8" md="8">
+            <UserAccountDetails data={state.details} />
+          </Col>
+          <Col lg="4" md="4">
+            <UserDetails />
+          </Col>
+        </Row>
+      </Container>
+    </>
+  ) 
+}
+
+export default Application

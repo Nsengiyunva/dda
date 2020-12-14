@@ -32,13 +32,16 @@ export default props => {
     }
     const handleSubmit = fields => {
         setLoading( true )
-        Axios.post("http://154.72.194.247/dda/api/login_user/", fields ).then(
+        Axios.post("http://154.72.194.247/dda/api/login_user/", {
+            username: fields.username.trim().toLowerCase(),
+            password: fields.password.trim()
+        } ).then(
             response => {
                 setLoading( false )
                 if( response.data ){
                     localStorage.setItem("token", response.data?.token )
                     localStorage.setItem("role", response.data?.role )
-                    localStorage.setItem("email_address", fields.username )
+                    localStorage.setItem("email_address", fields.username.toLowerCase().trim() )
 
                     // if( response.data?.role === "client"){
                     //     props.history.push('/create-application')
@@ -54,6 +57,22 @@ export default props => {
             setLoading( false )
         })
     }
+    const handleRegisterSubmit = fields => {
+        setLoading( true )
+        Axios.post("http://154.72.194.247/dda/api/register_user/", 
+            {
+                email: fields.emailaddress.trim().toLowerCase(),
+                password1: fields.register_password.trim(),
+                password2: fields.register_password.trim()
+            }
+        ).then( response => {
+            // console.log( response )
+            // setLoading( false )
+            // props.history.push('/')
+        }).catch( error => {
+            throw error
+        })
+    }
     const toggleModal = () => setDisplayModal( displayModal ? false : true )
 
     if( showRegister === true){
@@ -62,7 +81,7 @@ export default props => {
                 <Formik 
                     enableReinitialize
                     initialValues={registerInitials}
-                    onSubmit={(fields) => handleSubmit(fields)}
+                    onSubmit={(fields) => handleRegisterSubmit(fields)}
                     validationSchema={validation[1]}
                     render={({ errors, handleSubmit, values,handleBlur, handleChange }) => {
                         return (

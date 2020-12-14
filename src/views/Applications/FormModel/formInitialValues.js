@@ -13,12 +13,21 @@ const { formField: {
     average_buying_price, average_selling_price, volume_transported_milk, installed_capacity,
     source_of_milk_products, purpose_for_storage,
     selling_milk_price, storage_condition, 
+  }, registerField: {
+    firstname, lastname, emailaddress, register_password, phonenumber
   } } = applicationModel
 
 export default [ {
     loginInitials : {
         [username.name]: "",
         [password.name]: ""
+    },
+    registerInitials: {
+      [firstname.name]: "",
+      [lastname.name]: "",
+      [register_password.name]: "",
+      [phonenumber.name]: "",
+      [emailaddress.name]: "",
     },
     application: {
       [applicant_type.name]: "",

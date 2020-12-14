@@ -257,5 +257,32 @@ export default {
             requiredErrorMsg: 'Storage Condition is Required'
         },
 
+    },
+    registerField: {
+        firstname: {
+            name: 'first_name',
+            label: 'First Name',
+            requiredErrorMsg: 'First Name is Required'
+        },
+        lastname: {
+            name: 'last_name',
+            label: 'Last Name',
+            requiredErrorMsg: 'Last Name is Required'
+        },
+        emailaddress: {
+            name: 'email_address',
+            label: 'Email Address',
+            requiredErrorMsg: 'Email Address is Required'
+        },
+        register_password: {
+            name: 'register_password',
+            label: 'Password',
+            requiredErrorMsg: 'Password is Required'
+        },
+        phonenumber: {
+            name: 'phone_number',
+            label: 'Phone Number',
+            requiredErrorMsg: 'Phone Number is Required'
+        },
     }
 }

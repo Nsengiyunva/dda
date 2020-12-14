@@ -319,10 +319,10 @@ class AllApplications extends React.Component {
                           <td>{record.subcounty.toUpperCase()}</td>
                           <td>{record.village.toUpperCase()}</td>
                           
-                          <td>{record.inspected_by?.toUpperCase()}</td>
-                          <td>{record?.approved_by?.AllApplicationstoUpperCase()}</td>
-                          <td>{record.rejected_by?.toUpperCase()}</td>
-                          <td>{record.reject_on?.toUpperCase()}</td>
+                          <td>{record.inspected_by}</td>
+                          <td>{record?.approved_by}</td>
+                          <td>{record.rejected_by}</td>
+                          <td>{record.reject_on}</td>
                         </tr>
                       )
                     })}

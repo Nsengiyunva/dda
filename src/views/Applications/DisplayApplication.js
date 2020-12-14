@@ -62,7 +62,7 @@ export default props => {
                              <a href="javascript:void(0)">{ `View Application Details/${id}`}</a>/
                         </span>
                         
-                        {role === "IS_INSPECTOR" && ( 
+                        {!( role === "CLIENT" ) && ( 
                             <span>
                             <Button className="mr-2" theme="primary" onClick={() => handleModal('forward')}> Foward to Next </Button>
                             <Button className="ml-2" theme="danger" onClick={() => handleModal('reject')}> Reject </Button>

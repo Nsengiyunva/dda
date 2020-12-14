@@ -52,10 +52,5 @@ export default [
     path: "/display-application",
     layout: Wide,
     component: DisplayApplication
-  },
-  // {
-  //   path: "/edit-application",
-  //   layout: DefaultLayout,
-  //   component: EditApplication
-  // },
+  }
 ];

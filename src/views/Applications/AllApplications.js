@@ -257,8 +257,10 @@ class AllApplications extends React.Component {
         <div style={{ marginTop: '7rem'}} />
         <Container fluid className="main-content-container px-4">
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-            <h6>My Applications</h6>
-            <Button theme="success" onClick={() => this.props.history.push('/create-application')}>Make a New Application</Button>
+            <h6>{localStorage.getItem( 'role' ).toUpperCase() === 'CLIENT'  ? `My Applications` : `Applications`}</h6>
+            {localStorage.getItem( 'role' ).toUpperCase() === 'CLIENT'  &&
+              <Button theme="success" onClick={() => this.props.history.push('/create-application')}>Make a New Application</Button>
+            }
           </div>
           <hr style={{ border: "2px solid #369898",  }} />
           <Row>
@@ -268,7 +270,7 @@ class AllApplications extends React.Component {
                 <table className="table table-dark mb-0" style={{ fontSize: '0.9rem'}}>
                   <thead className="thead-dark">
                     <tr>
-                      <th> Actions </th>
+                      <th> View </th>
                       <th scope="col" className="border-0">Status</th>
                       <th scope="col" className="border-0">Applicant Type</th>
                       <th scope="col" className="border-0">Name</th>

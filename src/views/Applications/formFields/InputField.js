@@ -24,7 +24,8 @@ const InputField = ( props ) => {
             className={'form-control'}
             value={props.value}
             autoComplete="off"
-            disabled={true}
+            onChange={props.onChange}
+            disabled={props.disabled || true}
         />
     </Col>
     )

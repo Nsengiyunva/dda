@@ -291,7 +291,7 @@ class AllApplications extends React.Component {
                   <tbody>
                     {applications?.map( record => {
                       return (
-                        <tr key={record.id}>
+                        <tr key={record.id} style={{ textAlign: 'center'}}>
                           <td style={{ padding: '0.75rem', textAlign: 'center' }}>
                             <a href="javascript:void(0)" onClick={() => this.props.history.push('/display-application', { record } )}>
                               View

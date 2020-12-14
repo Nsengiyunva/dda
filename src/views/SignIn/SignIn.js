@@ -9,17 +9,26 @@ import applicationModel from '../Applications/FormModel/applicationModel'
 import formInitialValues from '../Applications/FormModel/formInitialValues'
 import validation from '../Applications/FormModel/validationSchema'
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+
 import Register from '../Register'
 import './SignIn.css'
 
 
 
 export default props => {
+    const eye = <FontAwesomeIcon icon={faEye} />
     const[ isLoading, setLoading ] = useState( false )
     const[ displayModal, setDisplayModal ] = useState( false )
+    const[ passwordShown, setPasswordShown] = useState()
     const { formField: { username, password } } = applicationModel
 
     const { loginInitials } = formInitialValues[0]
+
+    const togglePasswordVisibility= () => {
+        setPasswordShown( passwordShown ? false : true )
+    }
 
     const handleSubmit = fields => {
         setLoading( true )
@@ -83,16 +92,18 @@ export default props => {
                                         required />
                                     <ErrorMessage name={username.name} component="div" className="invalid-feedback"/>
                                 </div>
-                                <div className="form-group">
+                                <div className="password-container form-group">
                                     <input 
-                                        type={password.name} 
+                                        name={password.name} 
+                                        type={passwordShown ? "text" : "password"}
                                         className="form-control item" 
-                                        className={'form-control' + (errors[password.name] ? ' is-invalid' : '')}
+                                        className={'mb-3 form-control' + (errors[password.name] ? ' is-invalid' : '')}
                                         id="password" 
                                         placeholder={password.label} name={password.name}
                                         onChange={handleChange} 
                                         onBlur={handleBlur} 
                                     />
+                                    <i onClick={() => togglePasswordVisibility()}>{eye}</i>
                                     <ErrorMessage name={password.name} component="div" className="invalid-feedback"/>
                                     <a className="pull-right" href="#" style={{ fontSize: '14px', color: "#0F0D08", textDecoration: "underline"}}>
                                         Forgotten password or Username ?

@@ -10,17 +10,9 @@
 }
 
 .registration-form form{
-  /*background-color: #fff;*/
-  /*background-color: #f5f6fa;*/
   max-width: 600px;
   margin: auto;
   padding: 50px 70px;
-  /*border-top-left-radius: 30px;
-  border-top-right-radius: 30px;*/
-  /*border-top-left-radius: 2;
-  border-top-right-radius: 2;*/
-  /*box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);*/
-  /*box-shadow: 0px 4px 8px 0px #757575;*/
 }
 
 .register-create-button {
@@ -62,18 +54,9 @@ text-align: center;
 
 .registration-form .social-media{
   max-width: 600px;
-  /*background-color: #fff;*/
   margin: auto;
   padding: 35px 0;
   text-align: center;
-  /*border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;*/
-  /*border-bottom-left-radius: 2;
-  border-bottom-right-radius: 2;
-  color: #9fadca;
-  border-top: 1px solid #dee9ff;*/
-  /*box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);*/
-  /*box-shadow: 0px 4px 8px 0px #757575;*/
 }
 
 .registration-form .social-icons{
@@ -98,6 +81,18 @@ text-align: center;
 .registration-form .social-icons a:hover{
   text-decoration: none;
   opacity: 0.6;
+}
+.password-container {
+  position: relative;
+}
+i {
+  position: absolute;
+  top: 15%;
+  right: 2%;
+}
+i:hover {
+  color: #00fcb6;
+  cursor: pointer;
 }
 
 @media (max-width: 576px) {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import logo from '../../images/dda_logo.png'
-import { Container, Button, Modal, ModalHeader, ModalBody } from 'shards-react'
+import logo from '../../images/usf-logo.jpg'
+import { Button, Modal, ModalHeader, ModalBody } from 'shards-react'
 import Axios from 'axios'
 import { Formik, Form, ErrorMessage } from 'formik'
 import { CircularProgress } from '@material-ui/core'
@@ -22,7 +22,7 @@ export default props => {
     const[ isLoading, setLoading ] = useState( false )
     const[ displayModal, setDisplayModal ] = useState( false )
     const[ passwordShown, setPasswordShown] = useState()
-    const { formField: { username, password }, registerField: { firstname, lastname, register_password, phonenumber, emailaddress } } = applicationModel
+    const { formField: { username, password }, registerField: { institution, firstname, lastname, register_password, phonenumber, emailaddress } } = applicationModel
     const[ showRegister, setShowRegister ] = useState( false )
 
     const { loginInitials, registerInitials } = formInitialValues[0]
@@ -32,23 +32,19 @@ export default props => {
     }
     const handleSubmit = fields => {
         setLoading( true )
-        Axios.post("http://154.72.194.247/dda/api/login_user/", {
-            username: fields.username.trim().toLowerCase(),
+        Axios.post("http://localhost:4000/users/authenticate", {
+            email_address: fields.username.trim().toLowerCase(),
             password: fields.password.trim()
         } ).then(
             response => {
                 setLoading( false )
-                if( response.data ){
-                    localStorage.setItem("token", response.data?.token )
-                    localStorage.setItem("role", response.data?.role )
+                if( response.data.status === "success" ){
+                    localStorage.setItem("token", response.data?.data?.token )
+                    localStorage.setItem("role", response.data?.data?.user.role )
                     localStorage.setItem("email_address", fields.username.toLowerCase().trim() )
 
-                    // if( response.data?.role === "client"){
-                    //     props.history.push('/create-application')
-                    // }
-                    // else {
-                      props.history.push('/applications')
-                    // }
+                    props.history.push('/applications')
+
                     setLoading( false )
                 }
             }
@@ -59,16 +55,22 @@ export default props => {
     }
     const handleRegisterSubmit = fields => {
         setLoading( true )
-        Axios.post("http://154.72.194.247/dda/api/register_user/", 
+
+        Axios.post("http://localhost:4000/users/register", 
             {
-                email: fields.emailaddress.trim().toLowerCase(),
-                password1: fields.register_password.trim(),
-                password2: fields.register_password.trim()
+                email_address: fields.email_address.trim().toLowerCase(),
+                first_name: fields.first_name.trim(),
+                last_name:  fields.first_name.trim(),
+                password: fields.register_password.trim(),
+                role: "MEMBER"
             }
         ).then( response => {
-            // console.log( response )
-            // setLoading( false )
-            // props.history.push('/')
+            if( response.data.status === "success"){
+                alert('User was successfully created')
+                setShowRegister( false )
+                
+            }
+            
         }).catch( error => {
             throw error
         })
@@ -77,7 +79,7 @@ export default props => {
 
     if( showRegister === true){
         return (
-            <div className="registration-form" style={{ border: '0px solid red' }}>
+            <div className="registration-form">
                 <Formik 
                     enableReinitialize
                     initialValues={registerInitials}
@@ -86,7 +88,7 @@ export default props => {
                     render={({ errors, handleSubmit, values,handleBlur, handleChange }) => {
                         return (
                             <Form onSubmit={handleSubmit}>
-                                <h5>REGISTER FOR A NEW ACCOUNT</h5>
+                                <h5>USER ACCOUNT CREATION</h5>
                                 <div className="my-3">
                                     <a style={{ fontSize: '1rem', fontWeight: 'bold',color: 'red', textDecoration: 'none'}} href="javascript:void(0)" onClick={() => setShowRegister( false )}>
                                      Go Back to Sign In / Login
@@ -130,6 +132,21 @@ export default props => {
                                         value={values.emailaddress}
                                         required />
                                     <ErrorMessage name={emailaddress.name} component="div" className="invalid-feedback"/>
+                                </div>
+                                <div className="form-group">
+                                    <select className="form-control item" 
+                                        id={institution.name} 
+                                        name={institution.name} 
+                                        className={(errors[institution.name] ? ' is-invalid' : '')}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.institution}
+                                        required>
+                                        <option value="" selected>Choose</option>
+                                        <option>Club</option>
+                                        <option>School</option>
+                                    </select>
+                                    <ErrorMessage name={institution.name} component="div" className="invalid-feedback"/>
                                 </div>
                                 <div className="password-container form-group">
                                     <input 
@@ -184,7 +201,7 @@ export default props => {
     return (
         <div className="container">
             <div className="row" style={{ justifyContent: 'flex-end', paddingTop: '20px' }}>
-                <Button type="button" theme="warning" onClick={ () => setShowRegister( true )} style={{ backgroundColor: '#358832', outline: 'none', border: 0, fontSize: '.75rem', color: '#DDD' }}>
+                <Button type="button" theme="warning" onClick={ () => setShowRegister( true )} style={{ backgroundColor: '#322f30', outline: 'none', border: 0, fontSize: '.75rem', color: '#DDD' }}>
                     Do not have an Account ? Register Here
                 </Button>
             </div>
@@ -201,7 +218,7 @@ export default props => {
                                 <input type="hidden" />
                                 <div className="form-icon" > 
                                     <img src={logo} style={{ width: '100%'}} alt="logo"/>
-                                    <h6 style={{ textAlign: "center", color: '#000'}}>LICENSING SYSTEM</h6>
+                                    {/* <h6 style={{ textAlign: "center", color: '#000'}}>LICENSING SYSTEM</h6> */}
                                 </div>
                     
                                 <div className="form-group">
@@ -236,7 +253,7 @@ export default props => {
                                 </div>
 
                                 <div className="form-group">
-                                    <Button theme="success" className="btn btn-block create-account" type="submit">
+                                    <Button theme="success" className="btn btn-block create-account" type="submit" style={{ backgroundColor: '#322f30' }}>
                                         {isLoading ? ( <CircularProgress size={24} />) : `Sign In` }
                                     </Button>
                                 </div>

@@ -279,6 +279,11 @@ export default {
             label: 'Password',
             requiredErrorMsg: 'Password is Required'
         },
+        institution: {
+            name: 'institution',
+            label: 'Institution',
+            requiredErrorMsg: 'Institution is Required'
+        },
         phonenumber: {
             name: 'phone_number',
             label: 'Phone Number',

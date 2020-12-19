@@ -14,7 +14,7 @@ const { formField: {
     source_of_milk_products, purpose_for_storage,
     selling_milk_price, storage_condition, 
   }, registerField: {
-    firstname, lastname, emailaddress, register_password, phonenumber
+    firstname, lastname, emailaddress, register_password, phonenumber, institution
   } } = applicationModel
 
 export default [ {
@@ -28,6 +28,7 @@ export default [ {
       [register_password.name]: "",
       [phonenumber.name]: "",
       [emailaddress.name]: "",
+      [institution.name]: ""
     },
     application: {
       [applicant_type.name]: "",

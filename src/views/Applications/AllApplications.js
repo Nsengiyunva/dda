@@ -257,9 +257,9 @@ class AllApplications extends React.Component {
         <div style={{ marginTop: '7rem'}} />
         <Container fluid className="main-content-container px-4">
           <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-            <h6>{localStorage.getItem( 'role' ).toUpperCase() === 'CLIENT'  ? `My Applications` : `Applications`}</h6>
-            {localStorage.getItem( 'role' ).toUpperCase() === 'CLIENT'  &&
-              <Button theme="success" onClick={() => this.props.history.push('/create-application')}>Make a New Application</Button>
+            <h6>{localStorage.getItem( 'role' ).toUpperCase() === 'MEMBER'  ? `My Applications` : `Applications`}</h6>
+            {localStorage.getItem( 'role' ).toUpperCase() === 'MEMBER'  &&
+              <Button theme="success" style={{ backgroundColor: "#faf502", outline:"none", border: "none", color: "black" }} onClick={() => this.props.history.push('/create-application')}>Make a New Application</Button>
             }
           </div>
           <hr style={{ border: "2px solid #369898",  }} />
@@ -272,24 +272,28 @@ class AllApplications extends React.Component {
                     <tr>
                       <th> View </th>
                       <th scope="col" className="border-0">Status</th>
-                      <th scope="col" className="border-0">Applicant Type</th>
-                      <th scope="col" className="border-0">Name</th>
-                      <th scope="col" className="border-0">Gender</th>
-                      <th scope="col" className="border-0">NIN</th>
-                      <th scope="col" className="border-0">Phone</th>
-                      <th scope="col" className="border-0">Type of License</th>
-                      <th scope="col" className="border-0">District</th>
-                      <th scope="col" className="border-0">Subcounty</th>
-                      <th scope="col" className="border-0">Village</th>
+                      <th scope="col" className="border-0">Date</th>
+                      <th scope="col" className="border-0">ReferenceID</th>
+                      <th scope="col" className="border-0">Institution</th>
+                      <th scope="col" className="border-0">Institution Type</th>
+                      <th scope="col" className="border-0">Name of Institution</th>
+                      <th scope="col" className="border-0">Physical Address</th>
+                      <th scope="col" className="border-0">Telephone</th>
+                      <th scope="col" className="border-0">Email Address</th>
+                      <th scope="col" className="border-0">Residential Address</th>
 
-                      <th scope="col" className="border-0">Inspected By</th>
-                      <th scope="col" className="border-0">Approved By</th>
-                      <th scope="col" className="border-0">Rejected By</th>
-                      <th scope="col" className="border-0">Rejected On</th>
+                      <th scope="col" className="border-0">Home District</th>
+                      <th scope="col" className="border-0">Executive Director</th>
+                      <th scope="col" className="border-0">Name</th>
+                      <th scope="col" className="border-0">NIN</th>
+                      <th scope="col" className="border-0">Address</th>
+                      <th scope="col" className="border-0">Athletes Coach Personnel</th>
+                      <th scope="col" className="border-0">Position</th>
+                      <th scope="col" className="border-0">Work Plan</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {applications?.map( record => {
+                    {/* {applications?.map( record => {
                       return (
                         <tr key={record.id} style={{ textAlign: 'center'}}>
                           <td style={{ padding: '0.75rem', textAlign: 'center' }}>
@@ -325,7 +329,7 @@ class AllApplications extends React.Component {
                           <td>{record.reject_on}</td>
                         </tr>
                       )
-                    })}
+                    })} */}
                   </tbody>
                 </table>
               </CardBody>

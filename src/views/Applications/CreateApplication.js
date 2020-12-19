@@ -45,7 +45,7 @@ const _renderStepContent = ( step, handleChange, handleBlur, values, errors, tou
 
 const CreateApplication = props => {
     const [ activeStep, setActiveStep ] = useState( 0 )
-    const steps = [ 'General Information', 'Category Types Information', 'Add Attachments' ]
+    const steps = [ 'General Information', 'Institution Information', 'Add Attachments' ]
 
     const currentValidationSchema = validationSchema[ activeStep ]
 
@@ -65,43 +65,11 @@ const CreateApplication = props => {
     }
     const _handleSubmit = ( fields, actions ) => {
         if( isLastStep ) {
+        console.log( fields )
         Axios.post("http://154.72.194.247/dda/api/application/", {
-                applicant_type: fields.applicant_type.toLowerCase(),
-                company_name: fields.company_name.trim(),
-                physical_business_address: fields.physical_business_address.trim(),
-                name: fields.first_name?.toUpperCase() + ' ' + fields.last_name?.toUpperCase(),
-                gender: fields.gender?.toUpperCase(),
-                national_id: fields.nin,
-                district: fields.district?.toUpperCase(),
-                subcounty: fields.subcounty?.toUpperCase(),
-                village: fields.village?.toUpperCase(),
-                country: fields.country?.toUpperCase(),
-                phone: fields.phone,
-                comment: "",
-                country_of_origin: fields.country_of_origin?.toUpperCase(),
-                country_of_destination : fields.country_of_destination?.toUpperCase(),
-                website_url: fields.website_url,
-                type_of_license: ( fields.category === "processors" ) ? fields.category_of_processors.trim() : ( fields.category === "importers" ? fields.category_importers.trim() : fields.category),
-                product_description: fields?.product_exported?.toUpperCase(),
-                source_of_product: fields.source_of_product?.toUpperCase(),
-                total_tonnage: fields.total_tonnage_importers,
-                equipment_description: fields.type_of_equipment?.toUpperCase(), 
-                source_of_equipment: fields.source_of_equipment?.toUpperCase(),
-                installed_capacity: fields.installed_capacity,
-                average_buying_price: fields.average_buying_price,
-                average_selling_price : fields.average_selling_price,
-                bank_prn : "",
-                business_reg_number : fields.business_registration_number.toUpperCase(),
-                business_reg_cert: "",
-                certificate_of_origin: "",
-                certificate_of_analysis: "",
-                distribution_plan: "",
-                monthly_returns: "",
-                product_recall_plan: "",
-                certificate_of_registration: "",
-                veterinary_certificate: "",
-                company_profile: "",
-                payment_slip: ""
+            name_of_institution: "xxxxxx",
+            physical_address: "xxxx",
+            application_status: "PENDING_SEC_GENERAL"
             }, {
                 headers: {
                     'Authorization': `Token ${localStorage.getItem('token')}`
@@ -113,7 +81,8 @@ const CreateApplication = props => {
             }).catch( error => {
                 console.log( error )
             })
-            alert('submit this form')
+
+            alert('Application has been submitted')
             props.history.push('/applications')
         } 
         else {
@@ -140,7 +109,7 @@ const CreateApplication = props => {
                 <Card small className="mb-4">
                 <CardHeader className="border-bottom">
                     <h6 className="m-0">
-                        Application for a License
+                        Application for a Membership License
                     </h6>
                 </CardHeader>
                 <ListGroup flush>
@@ -148,7 +117,7 @@ const CreateApplication = props => {
                     <Formik 
                         enableReinitialize
                         initialValues={formInitialValues[0].application}
-                        validationSchema={currentValidationSchema}
+                        // validationSchema={currentValidationSchema}
                         onSubmit={_handleSubmit}
                         render={ ({ values, errors, isSubmitting, handleSubmit, handleChange, handleBlur, touched }) => {
                             return (

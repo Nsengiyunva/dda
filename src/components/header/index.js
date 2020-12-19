@@ -10,13 +10,13 @@ const Header = props => {
         props.history.push("/")
     }
     return (
-    <header id="header" className="fixed-top " style={{ backgroundColor: "#369898" }}>
+    <header id="header" className="fixed-top " style={{ backgroundColor: "#322f30" }}>
         <div className="container d-flex align-items-center">
 
         <h6 className="logo mr-auto" style={{ fontSize: '0.85rem', display: 'flex', flexDirection: 'column'}}>
             <a href="#">
                 {/* <img src={logo} style={{ objectFit: 'contain'}}/> */}
-                DIARY DEVELOPMENT AUTHORITY
+                UGANDA SWIMMING FEDERATION
             </a>
         </h6>
         

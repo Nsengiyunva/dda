@@ -72,13 +72,13 @@ export default props => {
         <hr style={{ width: '100%', border: "2px solid #c99211" }} className="mt-5"/>
         <h6>Attachments</h6>
         <Row form className="mt-3">
-            {( values.category_importers === '1' || values.category_importers === '3' || 
-               values.category === '4' || values.category === '5' || values.category === '6'  ) && (
+            {/* {( values.category_importers === '1' || values.category_importers === '3' || 
+               values.category === '4' || values.category === '5' || values.category === '6'  ) && ( */}
                 <Col md="6">
-                    <label htmlFor={certificate_of_registration.name}>{certificate_of_registration.label}:</label>
-                    <CustomFileUpload onChange={(e) => fileHandlerChange(e, 'registration')} name={documentFile.registration?.title} />
+                    <label htmlFor={"work_plan"}>{"Work Plan"}:</label>
+                    <CustomFileUpload onChange={(e) => fileHandlerChange(e, 'work_plan')} name={"Attachment"} />
                 </Col>
-            ) }
+            {/* ) } */}
             
             {( values.category_importers === '1'  ) && (
                 <Col md="6">

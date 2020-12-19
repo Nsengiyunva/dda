@@ -18,7 +18,7 @@ export default props => {
         <>
         <Row form>
             <Col md="6" className="form-group">
-                <label htmlFor={applicant_type.name}>Date:</label>
+                <label htmlFor={'date'}>Date:</label>
                 <FormInput
                     id={"date"}
                     name={"date"}
@@ -29,22 +29,9 @@ export default props => {
                     disabled={true}
                 />
             </Col>
-            <Col md="6" className="form-group">
-                <label htmlFor={applicant_type.name}>Select Applicant Type:</label>
-                <FormSelect name={applicant_type.name} 
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={'form-control' + (errors[applicant_type.name] ? ' is-invalid' : '')}
-                    value={values.applicant_type}>
-                    <option value="">Choose...</option>
-                    <option value="INDIVIDUAL">INDIVIDUAL</option>
-                    <option value="COMPANY">COMPANY</option>
-                </FormSelect>
-                <ErrorMessage name={applicant_type.name} component="div" className="invalid-feedback"/>
-            </Col>
         </Row>
         <Row form className="mt-2">
-            {values.applicant_type === "INDIVIDUAL" && (
+            {/* {values.applicant_type === "INDIVIDUAL" && ( */}
                 <>
                 <Col md="4" className="form-group">
                     <label htmlFor={first_name.name}>{first_name.label}:</label>
@@ -88,7 +75,7 @@ export default props => {
                 <ErrorMessage name={gender.name} component="div" className="invalid-feedback"/>
                 </Col>
                 </>
-            )}
+            {/* )} */}
 
             {values.applicant_type === "COMPANY" && (
                 <>
@@ -138,7 +125,7 @@ export default props => {
             <ErrorMessage name={country.name} component="div" className="invalid-feedback"/>
             </Col>
             <Col md="6" className="form-group">
-                <label htmlFor={physical_business_address.name}>{physical_business_address.label}</label>
+                <label htmlFor={physical_business_address.name}>Address:</label>
                 <FormInput
                     name={physical_business_address.name}
                     id={physical_business_address.name}
@@ -146,7 +133,7 @@ export default props => {
                     onBlur={handleBlur}
                     className={'form-control' + (errors[physical_business_address.name] ? ' is-invalid' : '')}
                     value={values.physical_business_address}
-                    placeholder={physical_business_address.label}
+                    placeholder={'Address'}
                     autoComplete="off"
                 />
                 <ErrorMessage name={physical_business_address.name} component="div" className="invalid-feedback"/>
@@ -154,7 +141,7 @@ export default props => {
         </Row>
         <Row form className="mt-3">
             <Col md="4" className="form-group">
-                <label htmlFor={district.name}>{district.label}</label>
+                <label htmlFor={district.name}>Home District</label>
                 <FormSelect name={district.name} 
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -166,7 +153,7 @@ export default props => {
             <ErrorMessage name={district.name} component="div" className="invalid-feedback"/>
             </Col>
 
-            <Col md="4" className="form-group">
+            {/* <Col md="4" className="form-group">
                 <label htmlFor={subcounty.name}>{subcounty.label}</label>
                 <FormSelect name={subcounty.name} 
                     onChange={handleChange}
@@ -177,9 +164,9 @@ export default props => {
                 <option>SUBCOUNTY 1</option>
             </FormSelect>
             <ErrorMessage name={subcounty.name} component="div" className="invalid-feedback"/>
-            </Col>
+            </Col> */}
 
-            <Col md="4" className="form-group">
+            {/* <Col md="4" className="form-group">
                 <label htmlFor={village.name}>{village.label}</label>
                 <FormSelect name={village.name} 
                     onChange={handleChange}
@@ -190,10 +177,10 @@ export default props => {
                 <option>VILLA 1</option>
                 </FormSelect>
                 <ErrorMessage name={village.name} component="div" className="invalid-feedback"/>
-            </Col>
+            </Col> */}
         </Row>
         <Row form className="mt-3">
-            <Col md="4" className="form-group">
+            {/* <Col md="4" className="form-group">
                 <label htmlFor={country_of_origin.name}>{country_of_origin.label}</label>
                 <FormSelect name={country_of_origin.name} 
                     onChange={handleChange}
@@ -204,7 +191,7 @@ export default props => {
                 <option>UGANDA</option>
             </FormSelect>
             <ErrorMessage name={country_of_origin.name} component="div" className="invalid-feedback"/>
-            </Col>
+            </Col> */}
 
             <Col md="4" className="form-group">
                 <label htmlFor={phone.name}>{phone.label}</label>
@@ -221,7 +208,7 @@ export default props => {
                 <ErrorMessage name={phone.name} component="div" className="invalid-feedback"/>
             </Col>
 
-                { values.applicant_type === "INDIVIDUAL" && (
+                {/* { values.applicant_type === "INDIVIDUAL" && ( */}
                 <Col md="4" className="form-group">
                     <label htmlFor={nin.name}>{nin.label}</label>
                     <FormInput
@@ -236,7 +223,7 @@ export default props => {
                     />
                     <ErrorMessage name={nin.name} component="div" className="invalid-feedback"/>
                 </Col>
-                )}
+                {/* )} */}
         </Row>
         <Row form className="mt-3">
             <Col md="6" className="form-group">
@@ -254,7 +241,7 @@ export default props => {
                 />
                 <ErrorMessage name={email_address.name} component="div" className="invalid-feedback"/>
             </Col>
-            <Col md="4" className="form-group">
+            {/* <Col md="4" className="form-group">
                 <label htmlFor={website_url.name}>{website_url.label}</label>
                 <FormInput
                     name={website_url.name}
@@ -266,7 +253,7 @@ export default props => {
                     autoComplete="off"
                 />
                 <ErrorMessage name={website_url.name} component="div" className="invalid-feedback"/>
-            </Col>
+            </Col> */}
         </Row>
       </>
     )

@@ -34,7 +34,7 @@ export default props => {
                 </FormSelect>
             </Col>
 
-            {values.category === 'importers' && (
+            {values.category === 'importers_parent' && (
                 <Col md="6" className="form-group">
                     <label htmlFor={category_importers.name}>{category_importers.label}</label>
                     <FormSelect id={category_importers.name} name={category_importers.name} 
@@ -122,7 +122,7 @@ export default props => {
             )}
         </Row>
 
-        {values.category === 'milk_tankers_and_transporters' && (
+        {values.category === 'transporters' && (
         <>
         <Row form className="my-3">
             <Col md="6">
@@ -180,7 +180,7 @@ export default props => {
         </>
         )}
 
-        {( values.category === 'milk_collection' || values.category === 'milk_bulking'  ||  values.category === 'milk_sales' || values.category === 'milk_tankers_and_transporters' ) && (
+        {( values.category === 'milk_collection' || values.category === 'milk_bulking'  ||  values.category === 'milk_sales' || values.category === 'transporters' ) && (
         <Row form className="my-3">
             <Col md="6">
                 <label htmlFor={average_buying_price.name}>{average_buying_price.label}:</label>
@@ -270,7 +270,7 @@ export default props => {
         </>
         )}
 
-        {( values.category === 'exporter_of_milk_products') && (
+        {( values.category === 'exporters') && (
         <Row form className="my-3">
             <Col md="4">
                 <label htmlFor={source_of_product.name}>{source_of_product.label}:</label>
@@ -313,7 +313,7 @@ export default props => {
         </Row>
         ) }
 
-        {( values.category === 'importers' && values.category_importers === 'importer_of_milk_products' ) &&  (
+        {( values.category === 'importers_parent' && values.category_importers === 'importers' ) &&  (
             <Row form className="my-3">
                 <Col md="6">
                     <label htmlFor={product_type_importers.name}>{product_type_importers.label}:</label>
@@ -343,7 +343,7 @@ export default props => {
             </Row>
             )}
 
-            {values.category_importers === 'importer_of_ingredients' && (
+            {values.category_importers === 'starter_culture' && (
             <Row form className="my-3">
                 <Col md="6">
                     <label htmlFor={country_of_origin.name}>{country_of_origin.label}:</label>
@@ -359,7 +359,7 @@ export default props => {
                 </Col>
             </Row>
             )}
-            {values.category_importers === 'importer_of_equipment' && (
+            {values.category_importers === 'dairy_equipment' && (
                 <Row form className="my-3">
                     <Col md="6">
                         <label htmlFor={source_of_equipment.name}>{source_of_equipment.label}:</label>

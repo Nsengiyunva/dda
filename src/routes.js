@@ -8,8 +8,9 @@ import Register from './views/Register'
 // import AllApplications from './views/AllApplications'
 import AllApplications from './views/Applications/AllApplications'
 import CreateApplication from './views/Applications/CreateApplication'
-import Application from './views/Application'
-import DisplayApplication from './views/Applications/DisplayApplication'
+// import Application from './views/Application'
+// import DisplayApplication from './views/Applications/DisplayApplication'
+import ApplicationProfile from "./views/Applications/ApplicationProfile"
 
 export default [
   {
@@ -17,7 +18,6 @@ export default [
     exact: true,
     layout: Wide,
     component: SignIn
-    // component: () => <Redirect to="/sign-in" />
   },
   {
     path: "/dashboard",
@@ -43,14 +43,8 @@ export default [
     component: AllApplications
   },
   {
-    path: '/view-application',
-    exact: true,
+    path: "/application-profile/:id",
     layout: Wide,
-    component: Application
-  },
-  {
-    path: "/display-application",
-    layout: Wide,
-    component: DisplayApplication
+    component: ApplicationProfile
   }
-];
+]

@@ -65,7 +65,21 @@ const CreateApplication = props => {
     }
     const _handleSubmit = ( fields, actions ) => {
         if( isLastStep ) {
-        Axios.post("http://154.72.194.247/dda/api/application/", {
+            let applied_license = ''
+                switch( fields.category ) {
+                    case "processors":
+                        applied_license = fields.category_of_processors.trim()
+                        break;
+                    case "importers_parent":
+                        applied_license = fields.category_importers.trim()
+                        break;
+                    default:
+                        applied_license = fields.category;
+                        break;
+                }
+                // console.log( 'xxxx', applied_license )
+
+              Axios.post("http://154.72.194.247/dda/api/application/", {
                 applicant_type: fields.applicant_type.toLowerCase(),
                 company_name: fields.company_name.trim(),
                 physical_business_address: fields.physical_business_address.trim(),
@@ -81,7 +95,7 @@ const CreateApplication = props => {
                 country_of_origin: fields.country_of_origin?.toUpperCase(),
                 country_of_destination : fields.country_of_destination?.toUpperCase(),
                 website_url: fields.website_url,
-                type_of_license: ( fields.category === "processors" ) ? fields.category_of_processors.trim() : ( fields.category === "importers" ? fields.category_importers.trim() : fields.category),
+                type_of_license: applied_license,
                 product_description: fields?.product_exported?.toUpperCase(),
                 source_of_product: fields.source_of_product?.toUpperCase(),
                 total_tonnage: fields.total_tonnage_importers,
@@ -113,7 +127,7 @@ const CreateApplication = props => {
             }).catch( error => {
                 console.log( error )
             })
-            alert('submit this form')
+            alert('The application has been submitted')
             props.history.push('/applications')
         } 
         else {
@@ -121,7 +135,6 @@ const CreateApplication = props => {
             actions.setSubmitting( false )
             actions.setTouched({})
         }
-        //rome@#2020ADMIN
         
     }
     return (

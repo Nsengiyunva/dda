@@ -1,11 +1,11 @@
 import React from "react";
 import { Container, Row, Col, Card, CardHeader, CardBody, Button,
 Modal, ModalBody, ModalHeader, 
-FormSelect,FormInput } from "shards-react";
-
-import PageTitle from "../../components/common/PageTitle"
+FormSelect,FormInput } from "shards-react"
+import { CircularProgress } from '@material-ui/core'
+// import PageTitle from "../../components/common/PageTitle"
 import Axios from 'axios'
-// import moment from 'moment'
+import moment from 'moment'
 
 import ReactExport from "react-export-excel"
 
@@ -14,66 +14,13 @@ import { fetchApplications, prepareFormEdit } from '../../_actions'
 // import * as Yup from 'yup'
 import Pagination from '../../components/pagination'
 import Header from '../../components/header'
-
-// import { Formik, Form, ErrorMessage , Field } from 'formik'
+import { original } from './fixtures'
 import './Table.css'
 
 const ExcelFile = ReactExport.ExcelFile
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn
 
-// const licenses =  [
-//   {
-//       "id": 0,
-//       "name": "",
-//       "description": "Choose..."
-//   },
-//   {
-//       "id": 1,
-//       "name": "milk collection",
-//       "description": "milk collecting centre using coolers"
-//   },
-//   {
-//       "id": 2,
-//       "name": "milk bulking",
-//       "description": "milk bulking centers using coolers"
-//   },
-//   {
-//       "id": 3,
-//       "name": "milk sales",
-//       "description": "milk sales outlets using freezers and coolers"
-//   },
-//   {
-//       "id": 4,
-//       "name": "milk tankers and transporters",
-//       "description": "stakeholders using milk tankers (transporters)"
-//   },
-//   {
-//       "id": 5,
-//       "name": "processors",
-//       "description": "Processors (large, medium scale, cottage and small scale)"
-//   },
-//   {
-//       "id": 6,
-//       "name": "exporters",
-//       "description": "exporters"
-//   },
-//   {
-//       "id": 7,
-//       "name": "importers",
-//       "description": "(additives, equipment, milk products etc)"
-//   },
-//   {
-//       "id": 8,
-//       "name": "ATM",
-//       "description": "ATM (dispensing milk using ATM)"
-//   },
-//   {
-//       "id": 9,
-//       "name": "stores",
-//       "description": "milk or milk products)"
-//   }
-// ]
 class AllApplications extends React.Component {
   state = {
     approved: [],
@@ -105,27 +52,22 @@ class AllApplications extends React.Component {
     column: "",
     searchterm: "",
     loading: true,
-    id: null
+    id: null,
+    depositModal: false
   }
     componentDidMount() {
       if( this.state.loading  ){
         this.props.fetchApplications()
       }  
     }
-    componentDidUpdate(){
-      if( this.state.loading  ){
-        // this.setState({
-        //   allRecords: this.props.applications,
-        //   loading: false
-        // })
-      }
-    }
     onPageChanged = data => {
       const { applications } = this.props
       const { currentPage, totalPages, pageLimit } = data
   
       const offset = (currentPage - 1) * pageLimit
-      const currentRecords = applications?.slice(offset, offset + pageLimit)
+      const currentRecords = applications?.sort( (a, b) => {
+        return moment (b.submitted_on ).format('YYYYMMDD') - moment (a.submitted_on ).format('YYYYMMDD')
+      }).slice(offset, offset + pageLimit)
   
       this.setState({ currentPage, currentRecords, totalPages });
     }
@@ -147,6 +89,9 @@ class AllApplications extends React.Component {
     handleToggle = () => { 
       this.setState({ openModal: this.state.openModal ? false : true  })
       // setOpenModal( openModal ? false : true )
+    }
+    handleUploadToggle =() => {
+      this.setState({ depositModal: this.state.depositModal ? false : true })
     }
     updateServer = (id, status) => {
       Axios.post("http://154.72.194.247/api/auth/updateLeave", 
@@ -236,12 +181,15 @@ class AllApplications extends React.Component {
         }
       })
     }
+    handleAddModal = id => {
+      this.setState({ depositModal: true })
+    }
     render() {
       if( this.props.loading ){
         return (
           <div className="container mb-5">
             <div className="row d-flex flex-row py-1">
-              Loading Records...
+              <CircularProgress size={24} />
             </div>
           </div>
         )
@@ -272,6 +220,7 @@ class AllApplications extends React.Component {
                     <tr>
                       <th> View </th>
                       <th scope="col" className="border-0">Status</th>
+                      <th>Date Submitted</th>
                       <th scope="col" className="border-0">Applicant Type</th>
                       <th scope="col" className="border-0">Name</th>
                       <th scope="col" className="border-0">Gender</th>
@@ -293,7 +242,7 @@ class AllApplications extends React.Component {
                       return (
                         <tr key={record.id} style={{ textAlign: 'center'}}>
                           <td style={{ padding: '0.75rem', textAlign: 'center' }}>
-                            <a href="javascript:void(0)" onClick={() => this.props.history.push('/display-application', { record } )}>
+                            <a href="javascript:void(0)" onClick={() => this.props.history.push(`/application-profile/${record.id}`  )}>
                               View
                             </a>
                           </td>
@@ -304,12 +253,13 @@ class AllApplications extends React.Component {
                               </span>
                             </h6>
                           </td>
+                          <td>{moment( record.submitted_on ).format('DD-MM-YYYY')}</td>
                           <td>
                               <span class="badge badge-danger">
                               {record.applicant_type.toUpperCase()}
                               </span>
                           </td>
-                          <td>{record.name?.toUpperCase()}</td>
+                          <td>{record.applicant_type.toUpperCase() === "COMPANY" ? record.company_name?.toUpperCase() : record.name?.toUpperCase()}</td>
                           <td>{record.gender}</td>
                           <td>{record.national_id}</td>
                           <td>{record.phone}</td>
@@ -354,6 +304,23 @@ class AllApplications extends React.Component {
               </Container>
             </ModalBody>
         </Modal>
+
+        {/* <Modal open={this.state.depositModal} toggle={this.handleUploadToggle}> 
+            <ModalHeader>Add a Payment Slip</ModalHeader>
+            <ModalBody>
+              <Container>
+                Upload a Payment Slip for the Application
+                <input type="file" name="payment_slip" onChange={() => console.log('test')} />
+                <Button theme="success" onClick={this.handleConfirm} className="mr-2">
+                  Ok
+                </Button>
+                <Button theme="danger" onClick={this.handleToggle} className="ml-2">
+                  Cancel
+                </Button>
+                
+              </Container>
+            </ModalBody>
+        </Modal> */}
         </Container>
       </>
      )

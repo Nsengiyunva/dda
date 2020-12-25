@@ -58,7 +58,7 @@ export default [
     [village.name]: Yup.string().required(`${village.requiredErrorMsg}`),
     [country.name]: Yup.string().required(`${country.requiredErrorMsg}`),
     [country_of_origin.name]: Yup.string().required(`${country_of_origin.requiredErrorMsg}`),
-    [phone.name]: Yup.string().min(10, 'Phone Number should be at least 10 characters').required(`${phone.requiredErrorMsg}`).matches(phoneRegExp, 'Phone number is not valid')
+    [phone.name]: Yup.string().min(9, 'Phone Number should not be less than 10 characters - Start phone number with 77xxxxx').max(9, 'Phone Number should not be more than 10 characters - Start phone number with 77xxxxx').required(`${phone.requiredErrorMsg}`).matches(phoneRegExp, 'Phone number is not valid')
   }),
   Yup.object().shape({
     [category_importers.name]: Yup.string().when( [category.name], {

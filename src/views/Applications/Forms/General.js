@@ -4,7 +4,44 @@ import { ErrorMessage } from 'formik'
 import applicationModel from '../FormModel/applicationModel'
 import moment from 'moment'
 
+const SelectField = ({ md, fieldname, label, required, handleChange, handleBlur, val, errors, options }) => {
+    return (
+    <Col md={md || "6"} className="form-group">
+        <label htmlFor={fieldname}>{label}{required && <span style={{ color: 'red'}}>*</span>}</label>
+        <FormSelect name={fieldname} 
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={'form-control' + (errors[fieldname] ? ' is-invalid' : '')}
+            value={val}>
+            {options.map( option => (
+                <option key={option.id} value={option.value}>{option.label}</option>
+            ) )}
+        </FormSelect>
+        <ErrorMessage name={fieldname} component="div" className="invalid-feedback"/>
+    </Col>
+    )
+}
 
+const InputField = ( { disabled, type, md, label, fieldname, handleChange, handleBlur, val, required, errors  } ) => {
+    return (
+        <Col md={ md || "6"} className="form-group">
+            <label htmlFor={fieldname}>{label}: {required && <span style={{ color: 'red' }}>*</span>}</label>
+            <FormInput
+                type={ type || "text"}
+                id={fieldname}
+                name={fieldname}
+                placeholder={label}
+                onChange={handleChange}
+                className={'form-control' + (errors[fieldname] ? ' is-invalid' : '')}
+                onBlur={handleBlur}
+                value={val}
+                autoComplete="off"
+                disabled={disabled}
+            />
+            <ErrorMessage name={fieldname} component="div" className="invalid-feedback"/>
+        </Col>
+    )
+}
 export default props => {
     const { formField : { 
             applicant_type,company_name, first_name, last_name, 
@@ -18,108 +55,95 @@ export default props => {
         <>
         <Row form>
             <Col md="6" className="form-group">
-                <label htmlFor={applicant_type.name}>Date:</label>
+                <label htmlFor="date">Date:</label>
                 <FormInput
                     id={"date"}
                     name={"date"}
                     className={'form-control'}
                     placeholder={"Date"}
-                    value={moment( new Date()).format('DD-MM-YYYY')}
+                    value={moment( new Date()).format('Do MMMM YYYY')}
                     autoComplete="off"
                     disabled={true}
                 />
             </Col>
-            <Col md="6" className="form-group">
-                <label htmlFor={applicant_type.name}>Select Applicant Type:</label>
-                <FormSelect name={applicant_type.name} 
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={'form-control' + (errors[applicant_type.name] ? ' is-invalid' : '')}
-                    value={values.applicant_type}>
-                    <option value="">Choose...</option>
-                    <option value="INDIVIDUAL">INDIVIDUAL</option>
-                    <option value="COMPANY">COMPANY</option>
-                </FormSelect>
-                <ErrorMessage name={applicant_type.name} component="div" className="invalid-feedback"/>
-            </Col>
+            <SelectField 
+                fieldname={applicant_type.name}
+                val={values.applicant_type}
+                label={applicant_type.label}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                errors={errors}
+                required={true}
+                options={[ 
+                    { id: 1, value: "", label: "Choose..." }, 
+                    { id: 2, value: "INDIVIDUAL", label: "INDIVIDUAL" },
+                    { id: 3, value: "COMPANY", label: "COMPANY" },
+                ]}
+            />
         </Row>
         <Row form className="mt-2">
             {values.applicant_type === "INDIVIDUAL" && (
                 <>
-                <Col md="4" className="form-group">
-                    <label htmlFor={first_name.name}>{first_name.label}:</label>
-                    <FormInput
-                        id={first_name.name}
-                        name={first_name.name}
-                        placeholder={first_name.label}
-                        onChange={handleChange}
-                        className={'form-control' + (errors[first_name.name] ? ' is-invalid' : '')}
-                        onBlur={handleBlur}
-                        value={values.first_name}
-                        autoComplete="Off"
-                    />
-                    <ErrorMessage name={first_name.name} component="div" className="invalid-feedback"/>
-                </Col>
-                <Col md="4" className="form-group">
-                    <label htmlFor={last_name.name}>{last_name.label}</label>
-                    <FormInput
-                        id={last_name.name}
-                        name={last_name.name}
-                        placeholder={last_name.label}
-                        onChange={handleChange}
-                        className={'form-control' + (errors[last_name.name] ? ' is-invalid' : '')}
-                        onBlur={handleBlur}
-                        value={values.last_name}
-                        autoComplete="off"
-                    />
-                    <ErrorMessage name={last_name.name} component="div" className="invalid-feedback"/>
-                </Col>
-                <Col md="4" className="form-group">
-                    <label htmlFor={gender.name}>{gender.label}</label>
-                    <FormSelect name={gender.name} 
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className={'form-control' + (errors[gender.name] ? ' is-invalid' : '')}
-                        value={values.gender}>
-                    <option value="">Choose...</option>
-                    <option>MALE</option>
-                    <option>FEMALE</option>
-                </FormSelect>
-                <ErrorMessage name={gender.name} component="div" className="invalid-feedback"/>
-                </Col>
+                <InputField 
+                    fieldname={first_name.name}
+                    required 
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    errors={errors}
+                    val={values.first_name}
+                    label={first_name.label}
+                    md="4"
+                />
+                <InputField 
+                    fieldname={last_name.name}
+                    required 
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    errors={errors}
+                    val={values.last_name}
+                    label={last_name.label}
+                    md="4"
+                />
+                <SelectField 
+                    md="4"
+                    fieldname={gender.name}
+                    val={values.gender}
+                    label={gender.label}
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    errors={errors}
+                    required={true}
+                    options={[ 
+                        { id: 1, value: "", label: "Choose..." }, 
+                        { id: 2, value: "MALE", label: "MALE" },
+                        { id: 3, value: "FEMALE", label: "FEMALE" },
+                    ]}
+            />
                 </>
             )}
 
             {values.applicant_type === "COMPANY" && (
                 <>
-                <Col md="6" className="form-group">
-                    <label htmlFor={company_name.name}>{company_name.label}</label>
-                    <FormInput
-                        name={company_name.name}
-                        id={company_name.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className={'form-control' + (errors[company_name.name] ? ' is-invalid' : '')}
-                        value={values.company_name}
-                        placeholder={company_name.label}
-                        autoComplete="off"
+                    <InputField 
+                        fieldname={company_name.name}
+                        required 
+                        handleChange={handleChange}
+                        handleBlur={handleBlur}
+                        errors={errors}
+                        val={values.company_name}
+                        label={company_name.label}
+                        md="6"
                     />
-                    <ErrorMessage name={company_name.name} component="div" className="invalid-feedback"/>
-                </Col>
-                <Col md="6" className="form-group">
-                <label htmlFor={business_registration_number.name}>{business_registration_number.label}</label>
-                <FormInput
-                    name={business_registration_number.name}
-                    id={business_registration_number.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={'form-control' + (errors[business_registration_number.name] ? ' is-invalid' : '')}
-                    value={values.business_registration_number}
-                    placeholder={business_registration_number.label}
-                    autoComplete="off"
-                />
-                <ErrorMessage name={business_registration_number.name} component="div" className="invalid-feedback"/>
-                </Col>
+                    <InputField 
+                        fieldname={business_registration_number.name}
+                        required 
+                        handleChange={handleChange}
+                        handleBlur={handleBlur}
+                        errors={errors}
+                        val={values.business_registration_number}
+                        label={business_registration_number.label}
+                        md="6"
+                    />
                 </>
             )}
             
@@ -137,20 +161,16 @@ export default props => {
             </FormSelect>
             <ErrorMessage name={country.name} component="div" className="invalid-feedback"/>
             </Col>
-            <Col md="6" className="form-group">
-                <label htmlFor={physical_business_address.name}>{physical_business_address.label}</label>
-                <FormInput
-                    name={physical_business_address.name}
-                    id={physical_business_address.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={'form-control' + (errors[physical_business_address.name] ? ' is-invalid' : '')}
-                    value={values.physical_business_address}
-                    placeholder={physical_business_address.label}
-                    autoComplete="off"
-                />
-                <ErrorMessage name={physical_business_address.name} component="div" className="invalid-feedback"/>
-            </Col>
+            <InputField 
+                fieldname={physical_business_address.name}
+                required 
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                errors={errors}
+                val={values.physical_business_address}
+                label={physical_business_address.label}
+                md="6"
+            />
         </Row>
         <Row form className="mt-3">
             <Col md="4" className="form-group">
@@ -206,67 +226,52 @@ export default props => {
             <ErrorMessage name={country_of_origin.name} component="div" className="invalid-feedback"/>
             </Col>
 
-            <Col md="4" className="form-group">
-                <label htmlFor={phone.name}>{phone.label}</label>
-                <FormInput
-                    name={phone.name}
-                    id={phone.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={'form-control' + (errors[phone.name] ? ' is-invalid' : '')}
-                    value={values.phone}
-                    placeholder={phone.label}
-                    autoComplete="off"
+            <InputField 
+                type="number"
+                fieldname={phone.name}
+                required 
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                errors={errors}
+                val={values.phone}
+                label={phone.label}
+                md="4"
+            />
+            { values.applicant_type === "INDIVIDUAL" && (
+                <InputField 
+                    fieldname={nin.name}
+                    required 
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    errors={errors}
+                    val={values.nin}
+                    label={nin.label}
+                    md="4"
                 />
-                <ErrorMessage name={phone.name} component="div" className="invalid-feedback"/>
-            </Col>
-
-                { values.applicant_type === "INDIVIDUAL" && (
-                <Col md="4" className="form-group">
-                    <label htmlFor={nin.name}>{nin.label}</label>
-                    <FormInput
-                        name={nin.name}
-                        id={nin.name}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.nin}
-                        className={'form-control' + (errors[nin.name] ? ' is-invalid' : '')}
-                        placeholder={nin.label}
-                        autoComplete="off"
-                    />
-                    <ErrorMessage name={nin.name} component="div" className="invalid-feedback"/>
-                </Col>
-                )}
+            )}
         </Row>
         <Row form className="mt-3">
-            <Col md="6" className="form-group">
-                <label htmlFor={email_address.name}>{email_address.label}</label>
-                <FormInput
-                    name={email_address.name}
-                    id={email_address.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    className={'form-control' + (errors[email_address.name] ? ' is-invalid' : '')}
-                    value={values.email_address}
-                    placeholder={email_address.label}
-                    autoComplete="off"
-                    disabled
-                />
-                <ErrorMessage name={email_address.name} component="div" className="invalid-feedback"/>
-            </Col>
-            <Col md="4" className="form-group">
-                <label htmlFor={website_url.name}>{website_url.label}</label>
-                <FormInput
-                    name={website_url.name}
-                    id={website_url.name}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.website_url}
-                    placeholder={website_url.label}
-                    autoComplete="off"
-                />
-                <ErrorMessage name={website_url.name} component="div" className="invalid-feedback"/>
-            </Col>
+            <InputField 
+                type="email"
+                fieldname={email_address.name}
+                required 
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                errors={errors}
+                val={localStorage.getItem('email_address')}
+                label={email_address.label}
+                md="4"
+                disabled={true}
+            />
+            <InputField 
+                fieldname={website_url.name}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                errors={errors}
+                val={values.website_url}
+                label={website_url.label}
+                md="4"
+            />
         </Row>
       </>
     )

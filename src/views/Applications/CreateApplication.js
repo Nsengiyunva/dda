@@ -139,7 +139,7 @@ const CreateApplication = props => {
     }
     return (
         <>
-        <Header />
+        <Header history={props.history}/>
         <Container style={{ paddingTop: '5rem'}}>
             <Stepper activeStep={activeStep} className={classes.stepper}>
                 {steps.map(label => (

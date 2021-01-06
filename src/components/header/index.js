@@ -1,7 +1,7 @@
 import { Divider } from "@material-ui/core"
 import React from "react"
-import { Button } from 'shards-react'
-import logo from "../../images/dda_logo.png"
+// import { Button } from 'shards-react'
+// import logo from "../../images/dda_logo.png"
 import "../../views/styles.css"
 
 const Header = props => {
@@ -23,38 +23,35 @@ const Header = props => {
 
         <nav className="nav-menu d-none d-lg-block">
             <ul>
-                {/* <li className="xxx"><a href="#">home</a></li>
-                <li className="drop-down"><a href="#">apply for membership</a>
+                <li><a href="/">Home</a></li>
+                {!( localStorage.getItem('role')?.length > 0 ) ? 
+                 <li><a href="/sign-in">Login</a></li> :
+                 <li className="drop-down" style={{ color: "red" }}>
+                     <a>{localStorage.getItem("email_address")}</a>
+                     <ul>
+                        <li> 
+                        <a href="javascript:void(0)" onClick={() => handleLogout()}>
+                         Logout
+                        </a>
+                        </li>
+                    </ul>
+                </li>
+                }
+                {/* <li className="drop-down"><a href="#">apply for membership</a>
                     <ul>
                         <li> <a href="#">Profile</a></li>
                     </ul>
                 </li> */}
 
-                <li className="drop-down"><a href="#">email</a>
+                {/* <li className="drop-down"><a href="#">email</a>
                     <ul>
                         <li className="drop-down"> <a href="">My Profile</a>
                             <ul>
                                 <li><a href="#">View</a></li>
-                                {/* <li> <a href="#">Edit</a></li> */}
                             </ul>
                         </li>
 
                         <li> <a href="/applications">My Applications</a></li>
-
-                        {/* <li className="drop-down"> <a href="#">Billing</a>
-                            <ul>
-                                <li><a href="/applications">my account</a></li>
-                                <li><a href="#">history</a></li>
-                            </ul>
-                        </li> */}
-
-
-                        {/* <li className="drop-down"> <a href="#">Works</a>
-                        <ul>
-                            <li><a href="#">View</a></li>
-                            <li><a href="#">Add</a></li>
-                        </ul>
-                        </li> */}
 
                         <li className="drop-down"> <a href="#">Settings</a>
                             <ul>
@@ -64,7 +61,7 @@ const Header = props => {
 
                         <li> <a href="javascript:void(0)" onClick={ () => handleLogout()}>Logout</a> </li>
                     </ul>
-                </li>
+                </li> */}
             </ul>
         </nav>
         </div>

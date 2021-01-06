@@ -31,11 +31,15 @@ export default props => {
                     <h3 style={{ alignSelf: "center", }}>
                        Services
                     </h3>
-                    <Link label={"1. Make New Membership Application"} 
+                    <Link label={"1. Register for A User Account and Login"} 
+                      path={() => props.history.push('/register')} />
+                    <Link label={"2. Make New Membership Application"} 
                       path={() => props.history.push('/new-membership')} />
-                    <Link label={"2. Transfer the coaches"} 
+                    <Link label={"3. Transfer the coaches"} 
                       path={() => props.history.push('/transfer')} />
-                    <Link label={"3. Athletes Profile"} 
+                    <Link label={"4. Athletes Profile"} 
+                      path={() => props.history.push('/athletes-profile')} />
+                    <Link label={"5. Submit Quaterly Reports"} 
                       path={() => props.history.push('/athletes-profile')} />
                 </div>
             </Container>

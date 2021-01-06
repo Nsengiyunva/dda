@@ -10,6 +10,7 @@ import AllApplications from './views/Applications/AllApplications'
 import CreateApplication from './views/Forms/CreateApplication'
 import Application from './views/Application'
 import DisplayApplication from './views/Applications/DisplayApplication'
+import SignIn from "./views/SignIn"
 
 export default [
   {
@@ -29,6 +30,12 @@ export default [
     exact: true,
     layout: Wide,
     component: Register
+  },
+  {
+    path: "/sign-in",
+    exact: true,
+    layout: Wide,
+    component: SignIn
   },
   {
     path: '/create-application',

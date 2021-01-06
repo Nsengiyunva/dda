@@ -66,32 +66,7 @@ const ModalComponent = props => {
                           
                       } }
                 </Formik>
-              {/* {this.state.modalContent && 
-                  <ModalDetails data={this.state.modalContent} handleChange={() => console.log('Test')}/>}
-                <div>
-                  <Button className="mr-2" theme="success" onClick={() => this.handleConfirm({
-                    'id': this.state.modalContent && this.state.modalContent['id'], 
-                    'current_status': this.state.modalContent && this.state.modalContent['current_status'], 
-                    'cost': this.state.modalContent && this.state.modalContent['cost'],
-                    'action': this.state.modalContent && this.state.modalContent['action'],
-                    'nextAction': this.state.modalContent && this.state.modalContent['action'] === 'reject' ? 'seekClarification' : null
-                  })}>  
-                    { this.state.modalContent && this.state.modalContent['action'] === 'reject' ? `Seek Clarification` : `OK` }
-                  </Button>
-
-                  {this.state.modalContent && this.state.modalContent['action'] === 'reject' && (
-                    <Button className="ml-2" theme="danger" onClick={() => this.handleReject({ 
-                      'id': this.state.modalContent && this.state.modalContent['id'],
-                      'action': this.state.modalContent && this.state.modalContent['action']
-                    })}>
-                      Reject
-                    </Button>
-                  )}
-
-                  <Button className="ml-2" theme="danger" onClick={() => this.handleToggle()}>
-                    Cancel
-                  </Button>
-              </div> */}
+              
             </Container>
           </ModalBody>
       </Modal> 

@@ -5,75 +5,23 @@ FormSelect,FormInput } from "shards-react";
 
 import PageTitle from "../../components/common/PageTitle"
 import Axios from 'axios'
-// import moment from 'moment'
+import moment from 'moment'
 
 import ReactExport from "react-export-excel"
 
 import { connect } from 'react-redux'
 import { fetchApplications, prepareFormEdit } from '../../_actions'
-// import * as Yup from 'yup'
+import * as Yup from 'yup'
 import Pagination from '../../components/pagination'
 import Header from '../../components/header'
 
-// import { Formik, Form, ErrorMessage , Field } from 'formik'
+import { Formik, Form, ErrorMessage , Field } from 'formik'
 import './Table.css'
 
 const ExcelFile = ReactExport.ExcelFile
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn
 
-// const licenses =  [
-//   {
-//       "id": 0,
-//       "name": "",
-//       "description": "Choose..."
-//   },
-//   {
-//       "id": 1,
-//       "name": "milk collection",
-//       "description": "milk collecting centre using coolers"
-//   },
-//   {
-//       "id": 2,
-//       "name": "milk bulking",
-//       "description": "milk bulking centers using coolers"
-//   },
-//   {
-//       "id": 3,
-//       "name": "milk sales",
-//       "description": "milk sales outlets using freezers and coolers"
-//   },
-//   {
-//       "id": 4,
-//       "name": "milk tankers and transporters",
-//       "description": "stakeholders using milk tankers (transporters)"
-//   },
-//   {
-//       "id": 5,
-//       "name": "processors",
-//       "description": "Processors (large, medium scale, cottage and small scale)"
-//   },
-//   {
-//       "id": 6,
-//       "name": "exporters",
-//       "description": "exporters"
-//   },
-//   {
-//       "id": 7,
-//       "name": "importers",
-//       "description": "(additives, equipment, milk products etc)"
-//   },
-//   {
-//       "id": 8,
-//       "name": "ATM",
-//       "description": "ATM (dispensing milk using ATM)"
-//   },
-//   {
-//       "id": 9,
-//       "name": "stores",
-//       "description": "milk or milk products)"
-//   }
-// ]
 class AllApplications extends React.Component {
   state = {
     approved: [],
@@ -109,7 +57,7 @@ class AllApplications extends React.Component {
   }
     componentDidMount() {
       if( this.state.loading  ){
-        this.props.fetchApplications()
+        // this.props.fetchApplications()
       }  
     }
     componentDidUpdate(){
@@ -237,15 +185,15 @@ class AllApplications extends React.Component {
       })
     }
     render() {
-      if( this.props.loading ){
-        return (
-          <div className="container mb-5">
-            <div className="row d-flex flex-row py-1">
-              Loading Records...
-            </div>
-          </div>
-        )
-      }
+      // if( this.props.loading ){
+      //   return (
+      //     <div className="container mb-5">
+      //       <div className="row d-flex flex-row py-1">
+      //         Loading Records...
+      //       </div>
+      //     </div>
+      //   )
+      // }
 
     const { applications } = this.props
     const totalRequsitions = this.props.applications?.length
@@ -256,12 +204,13 @@ class AllApplications extends React.Component {
         <Header history={this.props.history}/>
         <div style={{ marginTop: '7rem'}} />
         <Container fluid className="main-content-container px-4">
-          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+          {/* <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
             <h6>{localStorage.getItem( 'role' ).toUpperCase() === 'MEMBER'  ? `My Applications` : `Applications`}</h6>
             {localStorage.getItem( 'role' ).toUpperCase() === 'MEMBER'  &&
               <Button theme="success" style={{ backgroundColor: "#faf502", outline:"none", border: "none", color: "black" }} onClick={() => this.props.history.push('/create-application')}>Make a New Application</Button>
             }
-          </div>
+          </div> */}
+          <h5> Submitted Applications </h5>
           <hr style={{ border: "2px solid #369898",  }} />
           <Row>
           <Col>
@@ -274,62 +223,31 @@ class AllApplications extends React.Component {
                       <th scope="col" className="border-0">Status</th>
                       <th scope="col" className="border-0">Date</th>
                       <th scope="col" className="border-0">ReferenceID</th>
-                      <th scope="col" className="border-0">Institution</th>
                       <th scope="col" className="border-0">Institution Type</th>
                       <th scope="col" className="border-0">Name of Institution</th>
-                      <th scope="col" className="border-0">Physical Address</th>
-                      <th scope="col" className="border-0">Telephone</th>
+                      <th scope="col" className="border-0">Created By</th>
                       <th scope="col" className="border-0">Email Address</th>
-                      <th scope="col" className="border-0">Residential Address</th>
-
-                      <th scope="col" className="border-0">Home District</th>
-                      <th scope="col" className="border-0">Executive Director</th>
-                      <th scope="col" className="border-0">Name</th>
-                      <th scope="col" className="border-0">NIN</th>
-                      <th scope="col" className="border-0">Address</th>
-                      <th scope="col" className="border-0">Athletes Coach Personnel</th>
-                      <th scope="col" className="border-0">Position</th>
-                      <th scope="col" className="border-0">Work Plan</th>
+                      <th scope="col" className="border-0">Phone Number</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {/* {applications?.map( record => {
-                      return (
-                        <tr key={record.id} style={{ textAlign: 'center'}}>
-                          <td style={{ padding: '0.75rem', textAlign: 'center' }}>
-                            <a href="javascript:void(0)" onClick={() => this.props.history.push('/display-application', { record } )}>
-                              View
-                            </a>
-                          </td>
+                    {/* {applications?.map( record => { */}
+                      {/* return ( */}
+                        <tr style={{ textAlign: 'center'}}>
                           <td>
-                            <h6>
-                              <span class="badge badge-danger" style={{ background: 'green'}}>
-                                {record.status.toUpperCase()}
-                              </span>
-                            </h6>
+                            <Button theme="danger" onClick={ () => this.props.history.push("/display-application", { record: { id: 1 } } )}> View </Button>
                           </td>
-                          <td>
-                              <span class="badge badge-danger">
-                              {record.applicant_type.toUpperCase()}
-                              </span>
-                          </td>
-                          <td>{record.name?.toUpperCase()}</td>
-                          <td>{record.gender}</td>
-                          <td>{record.national_id}</td>
-                          <td>{record.phone}</td>
-                          <td>{record.type_of_license}</td>
-
-                          <td>{record.district.toUpperCase()}</td>
-                          <td>{record.subcounty.toUpperCase()}</td>
-                          <td>{record.village.toUpperCase()}</td>
-                          
-                          <td>{record.inspected_by}</td>
-                          <td>{record?.approved_by}</td>
-                          <td>{record.rejected_by}</td>
-                          <td>{record.reject_on}</td>
+                          <td>PENDING_SG</td>
+                          <td>xxx</td>
+                          <td>xxx</td>
+                          <td>xxx</td>
+                          <td>xxx</td>
+                          <td>xxx</td>
+                          <td>xxx</td>
+                          <td>xxx</td>
                         </tr>
-                      )
-                    })} */}
+                      {/* ) */}
+                    {/* })} */}
                   </tbody>
                 </table>
               </CardBody>

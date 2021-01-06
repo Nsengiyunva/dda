@@ -4,12 +4,36 @@ import { Container, Button, Row, Col, Form, FormInput, FormSelect, Modal, ModalB
 import { Formik, ErrorMessage } from 'formik'
 import * as Yup from "yup"
 import "./Application.css"
+import Axios from "axios"
+import moment from "moment"
 
 
 export default props => {
     const [ modal, setModal ] = useState( false )
-    const handleSubmit = () => {
-
+    const _handleSubmit = fields => {
+        // console.log( fields )
+        Axios.post("http://localhost:4000/application/", {
+            date: moment( new Date() ).format( "DD-MM-YYYY" ),
+            completed_list: fields.completed_list,
+            composition: fields.composition,
+            compliant_constitution: fields.constitution,
+            completed_list: fields.information,
+            name: fields.name,
+            any_other_relevant: fields.other_type,
+            payment_receipt: fields.receipt,
+            signed_resolution: fields.resolution,
+            type: fields.type,
+            email_address: localStorage.getItem("email_address"),
+            status: "PENDING_SG"
+        } ).then( response => {
+            // console.log( response )
+            if( response.data.status === "success"){
+                alert("application saved")
+                props.history.push("/applications")
+            }
+        } ).catch( error => {
+            console.log( error )
+        } )
     }
     const toggleModal = () => {
         setModal( modal ? false : true )
@@ -54,8 +78,8 @@ export default props => {
                             })
                         }
                         onSubmit={ values => {
-                            setModal( true )
-                            props.history.push("/applications")
+                            _handleSubmit( values )
+                            // setModal( true )
                         } }
                         render={ ({ values, errors, isSubmitting, handleSubmit, handleChange, handleBlur, touched }) => {
                             return (

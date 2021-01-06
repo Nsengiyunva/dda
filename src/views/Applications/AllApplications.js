@@ -33,23 +33,6 @@ class AllApplications extends React.Component {
     currentPage: null, 
     totalPages: null,
     loading: true,
-    columns: [
-      { key: "licenseID", value: "License ID" },
-      { key: "name", value: "Licensee" },
-      { key: "contactAddress", value: "Address" },
-      { key: "applicantCategory", value: "Category" },
-      { key: "hectares_assigned", value: "Area Allocated" },
-      { key: "period", value: "Period" },
-      { key: "managementarea", value: "Range" },
-      { key: "blocknumber", value: "Block No" },
-      { key: "forest_reserve", value: "Forest Reserve" },
-      { key: "sector", value: "Sector" },
-      { key: "district", value: "District" },
-      { key: "amount_paid", value: "Amount Paid" },
-      { key: "amount_due", value: "Amount Due" },
-      { key: "date_of_issue", value: "Start Date" },
-      { key: "date_of_expiry", value: "Expiry Date" }
-    ],
     column: "",
     searchterm: "",
     loading: true,
@@ -57,7 +40,14 @@ class AllApplications extends React.Component {
   }
     componentDidMount() {
       if( this.state.loading  ){
-        // this.props.fetchApplications()
+        Axios.get("http://localhost:4000/application/").then( response => {
+          if( response.data.status === "success"){
+            this.setState({ currentRequistions: response.data.applications })
+          }
+          else {
+            console.log('no data records')
+          }
+        })
       }  
     }
     componentDidUpdate(){
@@ -184,6 +174,16 @@ class AllApplications extends React.Component {
         }
       })
     }
+    deleteRecord = id => {
+      // Axios.delete(`http://localhost:4000/application/${id}`, {
+      //   data: {}
+      // } ).then( response => {
+      //   console.log( 'response',response )
+      //   window.location.reload()
+      // } ).catch( error => {
+      //   throw error
+      // } )
+    }
     render() {
       // if( this.props.loading ){
       //   return (
@@ -219,35 +219,30 @@ class AllApplications extends React.Component {
                 <table className="table table-dark mb-0" style={{ fontSize: '0.9rem'}}>
                   <thead className="thead-dark">
                     <tr>
-                      <th> View </th>
+                      <th> Actions </th>
                       <th scope="col" className="border-0">Status</th>
                       <th scope="col" className="border-0">Date</th>
-                      <th scope="col" className="border-0">ReferenceID</th>
                       <th scope="col" className="border-0">Institution Type</th>
                       <th scope="col" className="border-0">Name of Institution</th>
-                      <th scope="col" className="border-0">Created By</th>
                       <th scope="col" className="border-0">Email Address</th>
-                      <th scope="col" className="border-0">Phone Number</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {/* {applications?.map( record => { */}
-                      {/* return ( */}
+                    {this.state.currentRequistions?.filter( record => record.status !== "" ).map( value => {
+                      return (
                         <tr style={{ textAlign: 'center'}}>
                           <td>
-                            <Button theme="danger" onClick={ () => this.props.history.push("/display-application", { record: { id: 1 } } )}> View </Button>
+                            <Button theme="success" onClick={ () => this.props.history.push("/display-application", { record: { id: 1 } } )}> View </Button>
+                            <Button theme="danger" onClick={ () => alert('Delete a record') }> Delete </Button>
                           </td>
-                          <td>PENDING_SG</td>
-                          <td>xxx</td>
-                          <td>xxx</td>
-                          <td>xxx</td>
-                          <td>xxx</td>
-                          <td>xxx</td>
-                          <td>xxx</td>
-                          <td>xxx</td>
+                          <td>{value.status}</td>
+                          <td>{value.date}</td>
+                          <td>{value.type?.toUpperCase() }</td>
+                          <td>{value.name?.toUpperCase()}</td>
+                          <td>{value.email_address }</td>
                         </tr>
-                      {/* ) */}
-                    {/* })} */}
+                      )
+                    } ) }
                   </tbody>
                 </table>
               </CardBody>

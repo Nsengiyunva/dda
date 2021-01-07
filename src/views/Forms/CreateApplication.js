@@ -14,7 +14,17 @@ export default props => {
     const [ document, setDocument ] = useState({})
     const _handleSubmit = fields => {
         let documents = Object.values( document )
-        console.log( documents )
+        documents.forEach( document => {
+            Axios.post("http://localhost:4000/document", {
+                reference_id,
+                added_by,
+                file: document.file,
+                title: document.title,
+                type,
+                details,
+                size
+            } )
+        } )
         // Axios.post("http://localhost:4000/application/", {
         //     date: moment( new Date() ).format( "DD-MM-YYYY" ),
         //     completed_list: fields.completed_list,

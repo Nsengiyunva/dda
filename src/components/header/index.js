@@ -34,6 +34,7 @@ const Header = props => {
                          Logout
                         </a>
                         </li>
+                        <li><a href="/applications">My Applications</a></li>
                     </ul>
                 </li>
                 }

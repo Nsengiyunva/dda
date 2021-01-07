@@ -185,16 +185,7 @@ class AllApplications extends React.Component {
       // } )
     }
     render() {
-      // if( this.props.loading ){
-      //   return (
-      //     <div className="container mb-5">
-      //       <div className="row d-flex flex-row py-1">
-      //         Loading Records...
-      //       </div>
-      //     </div>
-      //   )
-      // }
-
+  
     const { applications } = this.props
     const totalRequsitions = this.props.applications?.length
 
@@ -216,24 +207,27 @@ class AllApplications extends React.Component {
           <Col>
             <Card small className="mb-4 overflow-hidden">
               <CardBody className="bg-dark p-0 pb-3">
-                <table className="table table-dark mb-0" style={{ fontSize: '0.9rem'}}>
+                <table className="table table-dark mb-0" style={{ fontSize: '0.75rem'}}>
                   <thead className="thead-dark">
                     <tr>
                       <th> Actions </th>
-                      <th scope="col" className="border-0">Status</th>
-                      <th scope="col" className="border-0">Date</th>
-                      <th scope="col" className="border-0">Institution Type</th>
-                      <th scope="col" className="border-0">Name of Institution</th>
-                      <th scope="col" className="border-0">Email Address</th>
+                      <th scope="col" className="border-0" style={{ textAlign: 'center' }}>Status</th>
+                      <th scope="col" className="border-0" style={{ textAlign: 'center' }}>Date</th>
+                      <th scope="col" className="border-0" style={{ textAlign: 'center' }}>Type</th>
+                      <th scope="col" className="border-0" style={{ textAlign: 'center' }}>Name of Institution</th>
+                      <th scope="col" className="border-0" style={{ textAlign: 'center' }}>Email Address</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.state.currentRequistions?.filter( record => record.status !== "" ).map( value => {
+                    {this.state.currentRequistions?.filter( val => 
+                      typeof val.status !== "undefined"  ).map( value => {
                       return (
-                        <tr style={{ textAlign: 'center'}}>
+                        <tr style={{ textAlign: 'center'}} key={value._id}>
                           <td>
-                            <Button theme="success" onClick={ () => this.props.history.push("/display-application", { record: { id: 1 } } )}> View </Button>
-                            <Button theme="danger" onClick={ () => alert('Delete a record') }> Delete </Button>
+                            <Button theme="success" onClick={ () => this.props.history.push("/display-application", { record: value } )}> 
+                              View 
+                            </Button>
+                            {/* <Button theme="danger" onClick={ () => alert('Delete a record') }> Delete </Button> */}
                           </td>
                           <td>{value.status}</td>
                           <td>{value.date}</td>

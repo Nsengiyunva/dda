@@ -37,12 +37,12 @@ export default [
     layout: Wide,
     component: SignIn
   },
-  {
-    path: '/create-application',
-    exact: true,
-    layout: Wide,
-    component: CreateApplication
-  },
+  // {
+  //   path: '/create-application',
+  //   exact: true,
+  //   layout: Wide,
+  //   component: CreateApplication
+  // },
   {
     path: '/applications',
     exact: true,

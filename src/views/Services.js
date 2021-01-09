@@ -38,7 +38,7 @@ export default props => {
                     <Link label={"3. Transfer the coaches"} 
                       path={() => props.history.push('/transfer')} />
                     <Link label={"4. Athletes Profile"} 
-                      path={() => props.history.push('/athletes-profile')} />
+                      path={() => props.history.push('/athletes')} />
                     <Link label={"5. Submit Quaterly Reports"} 
                       path={() => props.history.push('/athletes-profile')} />
                 </div>

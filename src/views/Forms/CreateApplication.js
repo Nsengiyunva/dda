@@ -14,39 +14,39 @@ export default props => {
     const [ document, setDocument ] = useState({})
     const _handleSubmit = fields => {
         let documents = Object.values( document )
-        documents.forEach( document => {
-            Axios.post("http://localhost:4000/document", {
-                reference_id,
-                added_by,
-                file: document.file,
-                title: document.title,
-                type,
-                details,
-                size
-            } )
+        
+        Axios.post("http://localhost:4000/application/", {
+            date: moment( new Date() ).format( "DD-MM-YYYY" ),
+            completed_list: fields.completed_list,
+            composition: fields.composition,
+            compliant_constitution: fields.constitution,
+            completed_list: fields.information,
+            name: fields.name,
+            any_other_relevant: fields.other_type,
+            payment_receipt: fields.receipt,
+            signed_resolution: fields.resolution,
+            type: fields.type,
+            email_address: localStorage.getItem("email_address"),
+            status: "PENDING_SG"
+        } ).then( response => {
+            if( response.data.status === "success"){
+                documents.forEach( document => {
+                    Axios.post("http://localhost:4000/document", {
+                        reference_id: response.data.id,
+                        added_by: localStorage.getItem("email_address"),
+                        file: document.file,
+                        title: document.title,
+                        type: document.type,
+                        details: document.details,
+                        size: document.size
+                    } )
+                } )
+                alert("application saved")
+                props.history.push("/applications")
+            }
+        } ).catch( error => {
+            console.log( error )
         } )
-        // Axios.post("http://localhost:4000/application/", {
-        //     date: moment( new Date() ).format( "DD-MM-YYYY" ),
-        //     completed_list: fields.completed_list,
-        //     composition: fields.composition,
-        //     compliant_constitution: fields.constitution,
-        //     completed_list: fields.information,
-        //     name: fields.name,
-        //     any_other_relevant: fields.other_type,
-        //     payment_receipt: fields.receipt,
-        //     signed_resolution: fields.resolution,
-        //     type: fields.type,
-        //     email_address: localStorage.getItem("email_address"),
-        //     status: "PENDING_SG"
-        // } ).then( response => {
-        //     // console.log( response )
-        //     if( response.data.status === "success"){
-        //         alert("application saved")
-        //         props.history.push("/applications")
-        //     }
-        // } ).catch( error => {
-        //     console.log( error )
-        // } )
     }
     const toggleModal = () => {
         setModal( modal ? false : true )

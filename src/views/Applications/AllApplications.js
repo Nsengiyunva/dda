@@ -45,7 +45,7 @@ class AllApplications extends React.Component {
             this.setState({ currentRequistions: response.data.applications })
           }
           else {
-            console.log('no data records')
+            // console.log('no data records')
           }
         })
       }  
@@ -174,16 +174,7 @@ class AllApplications extends React.Component {
         }
       })
     }
-    deleteRecord = id => {
-      // Axios.delete(`http://localhost:4000/application/${id}`, {
-      //   data: {}
-      // } ).then( response => {
-      //   console.log( 'response',response )
-      //   window.location.reload()
-      // } ).catch( error => {
-      //   throw error
-      // } )
-    }
+    deleteRecord = id => {}
     render() {
   
     const { applications } = this.props
@@ -222,12 +213,11 @@ class AllApplications extends React.Component {
                     {this.state.currentRequistions?.filter( val => 
                       typeof val.status !== "undefined"  ).map( value => {
                       return (
-                        <tr style={{ textAlign: 'center'}} key={value._id}>
+                        <tr style={{ textAlign: 'center', fontSize: '0.85rem', color: value.status === "APPROVED" && 'yellow' }} key={value._id}>
                           <td>
                             <Button theme="success" onClick={ () => this.props.history.push("/display-application", { record: value } )}> 
                               View 
                             </Button>
-                            {/* <Button theme="danger" onClick={ () => alert('Delete a record') }> Delete </Button> */}
                           </td>
                           <td>{value.status}</td>
                           <td>{value.date}</td>

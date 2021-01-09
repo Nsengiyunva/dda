@@ -7,12 +7,13 @@ import Axios from 'axios'
 
 export default props => {
     let { record: { any_other_relevant, completed_list, compliant_constitution, composition,
-          date, email_address, name, payment_receipt, signed_resolution,
-          status, type  }
+          _id, date, email_address, name, payment_receipt, signed_resolution, status, type  }
         } = props.location.state
 
 
     const role = localStorage.getItem('role').toUpperCase()
+
+    // console.log( role )
      
     const [ displayModal, setModalOpen ] = useState( false )
     const [ nextAction, setAction ] = useState( null )
@@ -25,37 +26,40 @@ export default props => {
     }
     const toggleModal = () => setModalOpen( displayModal ? false : true )
     const handleConfirm = () => {
-        // let action
-        // if( nextAction === "forward"  ){
-        //     if( role === "IS_INSPECTOR" ){
-        //         action = 'inspect_application'
-        //     }
-        //     if( role === "IS_MANAGER" ){
-        //         action = 'approve_application'
-        //     }
-        //     if( role === "IS_DIRECTOR" ){
-        //         action = 'verify_license'
-        //     }
-        // }
-        // if( nextAction === "reject"  ){
-        //     action = 'rejected'
-        // }
+      let action
+      if( nextAction === "forward") {
+        if( role === "SG" && status === "PENDING_SG"){
+          action = "PENDING_EXECUTIVE"
+        }
+        if( role === "SG" && status === "PENDING_SG_APPROVAL"){
+          action = "APPROVED"
+        }
+        if( role === "EXECUTIVE"){
+          action = "PENDING_SG_APPROVAL"
+        }
+      }
 
-        //     Axios.post(`http://154.72.194.247/dda/api/view_application/${id}/`, {
-        //         application_id: id,
-        //         action: action, 
-        //         comment: "NA"
-        //     }, {
-        //         headers: {
-        //             'Authorization': `Token ${localStorage.getItem('token')}`
-        //         }
-        //     }).then( response => {
-        //         if( response.data ){
-        //             props.history.push('/applications')
-        //         } else {
-        //             alert('Something sent wrong with approvals.')
-        //         }
-        //     }).catch( err => { throw err })
+      if( nextAction === "reject") {
+        if( role === "SG"){
+          action = "REJECTED"
+        }
+        if( role === "EXECUTIVE"){
+          action = "PENDING_SG_REJECTED"
+        }
+      }
+
+        if( action ) {
+          Axios.put(`http://localhost:4000/application/${_id}`,{
+            status: action
+          }).then( response => {
+            if( response.data ) {
+              alert('Application Updated successfully')
+              props.history.push("/applications")
+            }
+          } ).catch( error => {
+            // console.log( error )
+          } )
+        }
     }
     return (
         <>
@@ -71,12 +75,28 @@ export default props => {
                         
                         {!( role === "USER" ) && ( 
                           <span>
-                            <Button className="mr-2" theme="primary" onClick={() => handleModal('forward')}> 
-                              Forward to Next 
-                            </Button>
-                            <Button className="ml-2" theme="danger" onClick={() => handleModal('reject')}> 
-                              Reject 
-                            </Button>
+                            { role === "SG" && (
+                              <>
+                              <Button className="mr-2" theme="primary" onClick={() => handleModal('forward')}> 
+                                { !( status === "PENDING_SG_APPROVAL" ) ? `Forward to Executive Committee` : `Recommend for Approval` }
+                              </Button>
+                              <Button className="ml-2" theme="danger" onClick={() => handleModal('reject')}> 
+                                Reject 
+                              </Button>
+                              </>
+                            ) }
+
+                            { role === "EXECUTIVE" &&  (
+                              <>
+                              <Button className="mr-2" theme="primary" onClick={() => handleModal('forward')}> 
+                                Forward to Secretary General 
+                              </Button>
+                              <Button className="ml-2" theme="danger" onClick={() => handleModal('reject')}> 
+                                Reject 
+                              </Button>
+                              </>
+                            ) }
+                            
                           </span>
                          ) }
                     </CardHeader>
@@ -152,20 +172,19 @@ export default props => {
         </Container>
         <Modal open={displayModal} toggle={toggleModal} >
             <ModalHeader>
-
+              Administrator
             </ModalHeader>
             <ModalBody>
                 <Container>
                     <>
                     <Row>
-                      {/* <strong>{ role === "IS_INSPECTOR" && `Foward this application to the Manager` }</strong>
-                      <strong>{ role === "IS_MANAGER" && `Approve this application and send to director for verifcation` }</strong>
-                      <strong>{ role === "IS_DIRECTOR" && `Verify this license` }</strong> */}
-                      <InputField label="Remarks" name="remarks" disabled={false} />
+                      <strong>{ (role === "SG" && status === "PENDING_SG") && `Send this Application to the Executive Committee Representative` }</strong>
+                      <strong>{ role === "EXECUTIVE" && `Send this Application to the SG for approval` }</strong>
+                      
                     </Row>
                     <Row form>
-                      <Button theme="success" onClick={() =>handleConfirm()}>OK</Button>
-                      <Button theme="danger" onClick={() =>toggleModal()}>Cancel</Button>
+                      <Button theme="success" onClick={() => handleConfirm()}>Save</Button>
+                      <Button className="ml-2" theme="danger" onClick={() =>toggleModal()}>Cancel</Button>
                     </Row>
                     </>
                 </Container>

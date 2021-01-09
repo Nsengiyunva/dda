@@ -11,6 +11,7 @@ import CreateApplication from './views/Forms/CreateApplication'
 import Application from './views/Application'
 import DisplayApplication from './views/Applications/DisplayApplication'
 import SignIn from "./views/SignIn"
+import AllAthletes from "./views/Athletes/AllAthletes"
 
 export default [
   {
@@ -37,12 +38,12 @@ export default [
     layout: Wide,
     component: SignIn
   },
-  // {
-  //   path: '/create-application',
-  //   exact: true,
-  //   layout: Wide,
-  //   component: CreateApplication
-  // },
+  {
+    path: '/athletes',
+    exact: true,
+    layout: Wide,
+    component: AllAthletes
+  },
   {
     path: '/applications',
     exact: true,

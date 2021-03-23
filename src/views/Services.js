@@ -34,13 +34,22 @@ export default props => {
                     <Link label={"1. Register for A User Account and Login"} 
                       path={() => props.history.push('/register')} />
                     <Link label={"2. Make New Membership Application"} 
-                      path={() => props.history.push('/new-membership')} />
+                      path={() => { 
+                        if( localStorage.getItem("email_address")?.length > 0 ) {
+                          return props.history.push( '/new-membership' )
+                        }
+                        else { 
+                          return props.history.push('/sign-in', { "stage": "application"} ) 
+                        }
+                      } } />
                     <Link label={"3. Transfer the coaches"} 
                       path={() => props.history.push('/transfer')} />
-                    <Link label={"4. Athletes Profile"} 
+                    <Link label={"4. Athletes / Coaches Profile"} 
                       path={() => props.history.push('/athletes')} />
                     <Link label={"5. Submit Quaterly Reports"} 
                       path={() => props.history.push('/athletes-profile')} />
+                    <Link label={"6. Payment"} 
+                      path={() => props.history.push('/payment')} />
                 </div>
             </Container>
         </div>

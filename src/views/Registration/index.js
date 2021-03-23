@@ -14,58 +14,7 @@ const { date, type, category, first_name, last_name, others, company_name, gende
         country, district, subcounty, village, physical_address, telephone,
         type_of_license, expected_volumes, types, website } = registrationFields
 
-const licenses =  [
-    {
-        "id": 0,
-        "name": "",
-        "description": "Choose..."
-    },
-    {
-        "id": 1,
-        "name": "milk collection",
-        "description": "milk collecting centre using coolers"
-    },
-    {
-        "id": 2,
-        "name": "milk bulking",
-        "description": "milk bulking centers using coolers"
-    },
-    {
-        "id": 3,
-        "name": "milk sales",
-        "description": "milk sales outlets using freezers and coolers"
-    },
-    {
-        "id": 4,
-        "name": "milk tankers and transporters",
-        "description": "stakeholders using milk tankers (transporters)"
-    },
-    {
-        "id": 5,
-        "name": "processors",
-        "description": "Processors (large, medium scale, cottage and small scale)"
-    },
-    {
-        "id": 6,
-        "name": "exporters",
-        "description": "exporters"
-    },
-    {
-        "id": 7,
-        "name": "importers",
-        "description": "(additives, equipment, milk products etc)"
-    },
-    {
-        "id": 8,
-        "name": "ATM",
-        "description": "ATM (dispensing milk using ATM)"
-    },
-    {
-        "id": 9,
-        "name": "stores",
-        "description": "milk or milk products)"
-    }
-]
+//  
 
 const Registration = props => {
     const steps = [ "BioData", "Locations" ]

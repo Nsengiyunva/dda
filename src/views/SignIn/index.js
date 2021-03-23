@@ -26,6 +26,10 @@ export default props => {
     const { formField: { username, password }, registerField: { firstname, lastname, register_password, phonenumber, emailaddress } } = applicationModel
     const[ showRegister, setShowRegister ] = useState( false )
 
+    const state = props.location.state?.stage
+
+    console.log('state', state)
+
     const { loginInitials, registerInitials } = formInitialValues[0]
 
     const togglePasswordVisibility= () => {
@@ -39,11 +43,12 @@ export default props => {
                 password: fields.password
             }
         ).then( response => {
-            let { status, data: { user: { role, email_address } } }  = response.data 
-            if( response.data.status === "success" ){
+            const { status, user }  = response.data 
+            if( status === "success" ){
                 setLoading( false )
-                localStorage.setItem("email_address", email_address)
-                localStorage.setItem("role", role )
+                localStorage.clear()
+                localStorage.setItem("email_address", user.email_address)
+                localStorage.setItem("role", user.role )
                 props.history.push("/")
             }
             else {

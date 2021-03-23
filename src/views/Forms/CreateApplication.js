@@ -45,7 +45,7 @@ export default props => {
                 props.history.push("/applications")
             }
         } ).catch( error => {
-            console.log( error )
+            // console.log( error )
         } )
     }
     const toggleModal = () => {
@@ -214,11 +214,11 @@ export default props => {
                                                     name: "Calendar of Events/Work Plan/Activity Schedule for the Applicant",
                                                     tag: "calendar"
                                                 },
-                                                {
-                                                    id: 6,
-                                                    name: "Payment of Non-Refundable Process Fee (Attach Receipt)",
-                                                    tag: "payment"
-                                                },
+                                                // {
+                                                //     id: 6,
+                                                //     name: "Payment of Non-Refundable Process Fee (Attach Receipt)",
+                                                //     tag: "payment"
+                                                // },
                                                 {
                                                     id: 7,
                                                     name: "Any Other Relevant Information",

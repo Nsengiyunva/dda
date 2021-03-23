@@ -20,7 +20,7 @@ const Register = props => {
             first_name: formfields.first_name,
             last_name: formfields.last_name,
             email_address: formfields.email_address,
-            password: formfields.password,
+            password: "usf@#123",
             role: "USER"
         } ).then( response => {
             if( response.data.status === "success"){
@@ -89,7 +89,7 @@ const Register = props => {
                             required />
                     </div>
 
-                    <div className="form-group">
+                    {/* <div className="form-group">
                          <input type="password" className="form-control item" 
                             id="password" 
                             name="password"
@@ -98,7 +98,7 @@ const Register = props => {
                             name="password" 
                             autoComplete="off"
                             required />
-                    </div>
+                    </div> */}
 
                     <div className="form-group">
                         <Button type="submit" theme="danger" className="btn btn-block create-account">

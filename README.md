@@ -35,7 +35,8 @@ Bruce Allan Makaaru to Everyone (1:28 PM)
 3. What formats are accepted for attached documents?
 4. Would it be easier to have them make payment online (through VISA or Mobile Money) as opposed to submitting a receipt?
 Bruce Allan Makaaru to Everyone (1:31 PM)
-5. Could we maybe have a few instructions or intro on the lading page to on-board the users. Let them know how the process goes.
+5. Could we maybe have a few instructions or intro on the lading page to on-board the users. Let them know how the process goes. ----xxx 
+
 Bruce Allan Makaaru to Everyone (1:33 PM)
 6. It might also be easier for the admin user to send a note/message directly to the applicant’s email. In case there is something wrong with their application. Or something to clarify.
 Bruce Allan Makaaru to Everyone (2:32 PM)

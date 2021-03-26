@@ -1,7 +1,6 @@
 import { Divider } from "@material-ui/core"
 import React from "react"
-// import { Button } from 'shards-react'
-// import logo from "../../images/dda_logo.png"
+import logo from "../../images/usf-logo.jpg"
 import "../../views/styles.css"
 
 const Header = props => {
@@ -13,12 +12,18 @@ const Header = props => {
     <header id="header" className="fixed-top " style={{ backgroundColor: "#322f30" }}>
         <div className="container d-flex align-items-center">
 
-        <h6 className="logo mr-auto" style={{ fontSize: '0.85rem', display: 'flex', flexDirection: 'column'}}>
-            <a href="#">
-                {/* <img src={logo} style={{ objectFit: 'contain'}}/> */}
-                UGANDA SWIMMING FEDERATION
-            </a>
-        </h6>
+        <div className="logo mr-auto" style={{ display: 'flex', flexDirection: 'column'}}>
+            {/* <a href="#"> */}
+                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+                    <img src={logo} style={{ objectFit: 'contain'}}/>
+                    <div className="ml-1" style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                        <span className="p-1" style={{ fontSize: "12px", color: "white"}}>UGANDA</span>
+                        <span className="p-1" style={{ fontSize: "12px", color: "white"}}>SWIMMING</span>
+                        <span className="p-1" style={{ fontSize: "12px", color: "white" }}>FEDERATION</span>
+                    </div>
+                </div>
+            {/* </a> */}
+        </div>
         
 
         <nav className="nav-menu d-none d-lg-block">

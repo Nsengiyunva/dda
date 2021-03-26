@@ -178,7 +178,8 @@ class AllAthletes extends React.Component {
       // } )
     }
     handleAdd = () => {
-        this.setState( { openModal: true } )
+        // this.setState( { openModal: true } )
+        this.props.history.push('/add-athlete')
     }
     render() {
   
@@ -192,7 +193,7 @@ class AllAthletes extends React.Component {
         <div style={{ marginTop: '7rem'}} />
         <Container fluid className="main-content-container px-4">
           
-          <h5> Athletes List </h5>
+          <h5> All Athletes </h5>
           <hr style={{ border: "2px solid #369898",  }} />
           <Row>
           <Col>

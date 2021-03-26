@@ -12,6 +12,10 @@ import Application from './views/Application'
 import DisplayApplication from './views/Applications/DisplayApplication'
 import SignIn from "./views/SignIn"
 import AllAthletes from "./views/Athletes/AllAthletes"
+import Quaterly from "./views/Quaterly"
+import Transfer from './views/Transfer'
+import AddAthlete from "./views/Profile/AddAthlete"
+
 
 export default [
   {
@@ -70,5 +74,20 @@ export default [
     path: "/new-membership",
     layout: Wide,
     component: CreateApplication
+  },
+  {
+    path: "/report",
+    layout: Wide,
+    component: Quaterly
+  },
+  {
+    path: "/transfer-athlete",
+    layout: Wide,
+    component: Transfer
+  },
+  {
+    path: "/add-athlete",
+    layout: Wide,
+    component: AddAthlete
   }
 ];

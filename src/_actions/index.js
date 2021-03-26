@@ -74,3 +74,24 @@ export const savePDFile = payload => {
         payload
     }
 }
+
+export const saveActivity = payload => {
+    return {
+        type: "SAVE_ACTIVITY_VALUES",
+        payload
+    }
+}
+
+export const saveCurrent = payload => {
+    return {
+        type: "SAVE_CURRENT_VALUES",
+        payload
+    }
+}
+
+export const saveLeadership = payload => {
+    return {
+        type: "SAVE_LEADERSHIP_VALUES",
+        payload
+    }
+}

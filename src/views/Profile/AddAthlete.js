@@ -4,8 +4,9 @@ import {  Container, Row, Col, Card, CardHeader, Button,ListGroup, ListGroupItem
 import { Formik, Form } from 'formik'
 import { Stepper, Step, StepLabel,CircularProgress } from '@material-ui/core'
 import Header from '../../components/header'
-import TransferDetails from './TransferDetails'
-import DocumentsCheckLists from './DocumentsCheckLists'
+import BioDetails from './BioDetails'
+import Medals from './Medals'
+import Stats from './Stats'
 import * as Yup from 'yup'
 import moment from 'moment'
 import useStyles from '../styles'
@@ -17,7 +18,7 @@ import useStyles from '../styles'
 const _renderStepContent = ( step, handleChange, handleBlur, values, errors, touched ) => {
     switch( step ){
         case 0:
-            return <TransferDetails
+            return <BioDetails
                 handleChange={handleChange} 
                 values={values} 
                 handleBlur={handleBlur}
@@ -25,7 +26,15 @@ const _renderStepContent = ( step, handleChange, handleBlur, values, errors, tou
                 touched={touched}
             />
         case 1:
-            return <DocumentsCheckLists
+            return <Medals
+                handleChange={handleChange} 
+                values={values} 
+                handleBlur={handleBlur}
+                errors={errors} 
+                touched={touched}
+            />
+        case 2:
+            return <Stats
                 handleChange={handleChange} 
                 values={values} 
                 handleBlur={handleBlur}
@@ -41,7 +50,7 @@ const _renderStepContent = ( step, handleChange, handleBlur, values, errors, tou
 export default props => {
     const classes = useStyles()
     
-    const steps = [ 'Transfer Details', 'Documents Attached' ]
+    const steps = [ 'BioDetails', 'Medals','Stats' ]
 
     const [ activeStep, setActiveStep ] = useState( 0 )
 
@@ -110,7 +119,7 @@ export default props => {
                     <Card small className="mb-4">
                     <CardHeader className="border-bottom">
                         <h6 className="m-0">
-                            FILL IN REPORT DETAILS:
+                            FILL IN ATHLETE DETAILS:
                         </h6>
                     </CardHeader>
                     <ListGroup flush>

@@ -55,13 +55,7 @@ export default [
     component: AllApplications
   },
   {
-    path: '/view-application',
-    exact: true,
-    layout: Wide,
-    component: Application
-  },
-  {
-    path: "/display-application",
+    path: "/application-profile/:id",
     layout: Wide,
     component: DisplayApplication
   },
@@ -90,4 +84,4 @@ export default [
     layout: Wide,
     component: AddAthlete
   }
-];
+]
